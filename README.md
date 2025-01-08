@@ -1,4 +1,4 @@
-# [name] by Gone Fishing
+# Open Waters by Gone Fishing
 
 ## Roster & roles
 
