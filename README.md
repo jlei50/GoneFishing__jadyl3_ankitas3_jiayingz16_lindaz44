@@ -1,14 +1,14 @@
 # [name] by Gone Fishing
 
-## Roster
+## Roster & roles
 
 #### Jady Lei - Project Manager 
 
-#### Ankita Saha - 
+#### Ankita Saha - FEF & Database
 
-#### Michelle Zhu - 
+#### Michelle Zhu - FEF & API
 
-#### Linda Zheng - 
+#### Linda Zheng - FEF & API
 
 ## Project Description
 
