@@ -1,3 +1,7 @@
 ankitaS -- 12-8-24 16:20
 - clarified parts of database organization (what certain elements are going to be used for)
 - rearranged roles to incorporate javascript
+
+michelleZ -- 12-8-24 23:30
+- specified components involving the use of javascript
+- added specific tasks for the game
