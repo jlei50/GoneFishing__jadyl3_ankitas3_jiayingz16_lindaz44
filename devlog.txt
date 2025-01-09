@@ -1,7 +1,11 @@
-ankitaS -- 12-8-24 16:20
+ankitaS -- 01-8-25 16:20
 - clarified parts of database organization (what certain elements are going to be used for)
 - rearranged roles to incorporate javascript
 
-michelleZ -- 12-8-24 23:30
+michelleZ -- 01-8-25 23:30
 - specified components involving the use of javascript
 - added specific tasks for the game
+
+jadyL -- 01-9-25 00:30
+- checked over document
+- updated overview and replaced README overview.
