@@ -1,4 +1,4 @@
-## Quarter Collective: Ankita Saha, Evan Chan, and Jady Lei
+## GoneFishing: Jady Lei, Ankita Saha, Linda Zheng, Michelle Zhu
 
 
 # imports
@@ -81,8 +81,6 @@ def home():
 def removeSession():
     session.pop('username', None)
     return redirect("/")
-
-
 
 if __name__ == "__main__":
     app.debug = True
