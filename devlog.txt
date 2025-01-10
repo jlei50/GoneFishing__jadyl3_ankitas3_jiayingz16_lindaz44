@@ -12,3 +12,6 @@ jadyL -- 01-9-25 00:30
 
 ankitaS -- 01-9-25 10:45
 - added login info and tables to db
+
+ankitaS -- 01-9-25 19:45
+- added game save info to db (create, add, delete, get functions)
