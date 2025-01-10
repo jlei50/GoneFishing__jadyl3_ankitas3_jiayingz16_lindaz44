@@ -9,3 +9,6 @@ michelleZ -- 01-8-25 23:30
 jadyL -- 01-9-25 00:30
 - checked over document
 - updated overview and replaced README overview.
+
+ankitaS -- 01-9-25 10:45
+- added login info and tables to db
