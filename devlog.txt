@@ -35,3 +35,7 @@ lindaZ -- 01-10-25 02:56
 - finished background for the game
 - working on functions for api calling
 - working on making api keys for noaa site
+
+ankitaS -- 01-10-25 11:00
+- added info for leaderboard DB 
+- added functions for returning current voyage days, and final voyage DAYS, if reached
