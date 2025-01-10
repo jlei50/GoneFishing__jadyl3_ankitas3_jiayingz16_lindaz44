@@ -13,7 +13,6 @@ import random
 
 from flask import Flask, render_template, redirect, session, request, flash, jsonify
 
-#custom module
 # from sitedb import *
 from apis import *
 # from html_builder import *
@@ -84,7 +83,9 @@ def removeSession():
     session.pop('username', None)
     return redirect("/")
 
-
+@app.route("/map")
+def map():
+    return render_template("map")
 
 if __name__ == "__main__":
     app.debug = True

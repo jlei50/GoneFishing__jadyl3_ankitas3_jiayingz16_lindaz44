@@ -8,7 +8,7 @@ import json
 
 # ======================================== #
 
-# weather API documentation:
+# weather API documentation (no API keys required):
 # https://open-meteo.com/en/docs
 
 # example url:
@@ -18,5 +18,21 @@ forecast = f"https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.
 
 data = urllib.request.urlopen(forecast)
 print(json.loads(data.read()))
+
+def getForecast(latitude, longitude):
+    url = f"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&hourly=temperature_2m&hourly=apparent_temperature&hourly=weather_code"
+    data = urllib.request.urlopen(url)
+    weather_dict = json.loads(data.read())
+    temp = weather_dict["hourly"]["weather_code"]
+    print(temp)
+
+getForecast(52.52,13.41);
+
+# ======================================== #
+
+
+
+# ======================================== #
+
 
 # ======================================== #
