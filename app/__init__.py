@@ -83,6 +83,10 @@ def register():
 def home():
     return render_template("home.html")
 
+@app.route("/game")
+def game():
+    return render_template("game")
+
 @app.route("/logout")
 def removeSession():
     session.pop('username', None)
