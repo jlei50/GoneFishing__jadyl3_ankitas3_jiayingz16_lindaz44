@@ -51,3 +51,10 @@ def deleteUsers():
     c = db.cursor()
     c.execute("DROP table userTable")
 
+def gameSaves(username):
+    userTable = sqlite3.conncect(USER_FILE)
+    c = userTable.cursor()
+    c.execute("INSERT INTO userTable (day, food, money, progress, crew_mood) VALUES (?, ?, ?, ?, ?)")
+    return c.fetchall()
+
+
