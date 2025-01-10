@@ -15,16 +15,20 @@ def addUser(username, password):
     if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone() == None:
         c.execute("INSERT INTO userTable (username, password) VALUES (?, ?)", (username, password))
         userTable.commit()
-    return "Username added"
+        return
+    # return "Username added"
 
 def checkPass(username, password):
     userTable = sqlite3.connect(USER_FILE)
     c = userTable.cursor()
     c.execute("SELECT password FROM userTable WHERE username=?", (username,))
     f = c.fetchone()
-    if (password == f[0]):
-        return True
-    return "Invalid login"
+    print(f)
+    if (f == None):
+        return False
+    if ( password != f[0]):
+        return False
+    return True
 
 def checkUser(username, password):
     userTable = sqlite3.connect(USER_FILE)
@@ -35,7 +39,15 @@ def checkUser(username, password):
         return True
     return "Invalid login"
 
+# dev stuff
+def returnEntireUsersTable():
+    db = sqlite3.connect(USER_FILE)
+    c = db.cursor()
+    c.execute("SELECT * FROM userTable")
+    return c.fetchall()
+
 def deleteUsers():
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
     c.execute("DROP table userTable")
+

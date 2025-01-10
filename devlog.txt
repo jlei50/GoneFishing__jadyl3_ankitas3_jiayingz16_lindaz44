@@ -13,5 +13,13 @@ jadyL -- 01-9-25 00:30
 ankitaS -- 01-9-25 10:45
 - added login info and tables to db
 
+jadyL -- 01-9-25 10:45
+- setup flask and got the pages to load
+
 ankitaS -- 01-9-25 19:45
 - added game save info to db (create, add, delete, get functions)
+
+jadyL -- 01-10-25 00:02
+- added the git ignore
+- reimplemented the db functions
+- had to fix them
