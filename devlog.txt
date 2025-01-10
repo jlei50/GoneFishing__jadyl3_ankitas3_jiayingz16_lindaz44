@@ -36,6 +36,11 @@ lindaZ -- 01-10-25 02:56
 - working on functions for api calling
 - working on making api keys for noaa site
 
+<<<<<<< HEAD
 ankitaS -- 01-10-25 11:00
 - added info for leaderboard DB 
 - added functions for returning current voyage days, and final voyage DAYS, if reached
+=======
+lindaZ -- 01-10-25 10:48
+- added getWind function to retreive wind data from api
+>>>>>>> 7b9ecf90da4ae11e1e863bd7d6c5b6ce9321c2f0
