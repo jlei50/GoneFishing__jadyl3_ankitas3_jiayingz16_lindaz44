@@ -57,4 +57,33 @@ def gameSaves(username):
     c.execute("INSERT INTO userTable (day, food, money, progress, crew_mood) VALUES (?, ?, ?, ?, ?)")
     return c.fetchall()
 
+def getVoyageLengthDays(username):
+    days = sqlite3.connect(USER_FILE)
+    c = days.cursor()
+    command = "SELECT day FROM userTable"
+    c.execute(command)
+    return c.fetchall()
+    
+    
+def getFinalVoyageLengthDays(username):
+    days = sqlite3.connect(USER_FILE)
+    c = days.cursor()
+    #if progress from userTable == 100, return command, if not, return -1 --> in add voyagfe legnth, if voyage length -1, do not add
+    command = "SELECT day FROM userTable"
+    c.execute(command)
+    return c.fetchall()
+
+def createLeaderboard():
+    leaderboardTable = sqlite3.connect(USER_FILE)
+    c = leaderboardTable.cursor()
+    command = "CREATE TABLE IF NOT EXISTS leaderboardTable (username TEXT, voyageLengthDays INTEGER)"
+    c.execute(command)
+    leaderboardTable.commit()
+    
+def addVoyageLength():
+    leaderboardTable = sqlite3.connect(USER_FILE)
+    c = leaderboardTable.cursor()
+    command = "INSERT INTO leaderboardTable (username, voyageLengthDays) VALUES (?, ?)"
+    c.execute(command)
+    return
 

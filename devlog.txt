@@ -38,3 +38,15 @@ lindaZ -- 01-10-25 02:56
 
 jadyL -- 01-10-25 11:01
 - play around with the html for home page using fef
+
+ankitaS -- 01-10-25 11:00
+- added info for leaderboard DB 
+- added functions for returning current voyage days, and final voyage DAYS, if reached
+
+lindaZ -- 01-10-25 10:48
+- added getWind function to retreive wind data from api
+
+michelleZ -- 01-09-25 23:30
+- tested javascript + got it to work
+- edited roles on DD
+
