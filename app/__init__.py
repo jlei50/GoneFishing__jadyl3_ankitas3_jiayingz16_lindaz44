@@ -1,5 +1,7 @@
-## GoneFishing: Jady Lei, Ankita Saha, Linda Zheng, Michelle Zhu
-
+# GoneFishing: Jady Lei, Ankita Saha, Linda Zheng, Michelle Zhu
+# P2: Open Waters
+# SoftDev
+# Jan 2025
 
 # imports
 import os
@@ -13,7 +15,7 @@ from flask import Flask, render_template, redirect, session, request, flash, jso
 
 #custom module
 # from sitedb import *
-# from apis import *
+from apis import *
 # from html_builder import *
 
 # flask App
@@ -81,6 +83,8 @@ def home():
 def removeSession():
     session.pop('username', None)
     return redirect("/")
+
+
 
 if __name__ == "__main__":
     app.debug = True
