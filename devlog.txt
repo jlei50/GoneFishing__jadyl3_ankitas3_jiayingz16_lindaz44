@@ -35,3 +35,6 @@ lindaZ -- 01-10-25 02:56
 - finished background for the game
 - working on functions for api calling
 - working on making api keys for noaa site
+
+jadyL -- 01-10-25 11:01
+- play around with the html for home page using fef
