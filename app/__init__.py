@@ -13,8 +13,14 @@ import random
 
 from flask import Flask, render_template, redirect, session, request, flash, jsonify
 
+<<<<<<< HEAD
 # from sitedb import *
 from apis import *
+=======
+#custom module
+from sitedb import *
+# from apis import *
+>>>>>>> 617e036c2185669160e8a35921ff64003d70ca71
 # from html_builder import *
 
 # flask App
@@ -24,7 +30,7 @@ app.secret_key = os.urandom(32)
 @app.route("/")# checks for session and sends user to appropriate spot
 def checkSession():
     # setup functions go here:
-    # createUsers()
+    createUsers()
 
     return redirect("/home")
     # if 'username' in session:
@@ -36,6 +42,9 @@ def login():
     if 'username' in session:
         return redirect("/home")
 
+    print(returnEntireUsersTable())
+    print("test")
+
     if request.method =="POST":
         username = request.form.get("username")
         password = request.form.get("password")
@@ -44,7 +53,7 @@ def login():
             flash("Missing username/password", "error")
             return redirect("/login")
 
-        if checkPassword(username, password):# if password is correct, given user exists
+        if checkPass(username, password):# if password is correct, given user exists
             session["username"] = username# adds user to session
             return redirect("/home")
 
@@ -59,14 +68,13 @@ def register():
     if request.method =="POST":
         username = request.form.get("username")
         password = request.form.get("password")
-        city = request.form.get("city")
 
-        if not username or not password or not city:# checks if all 3 form entries were filled out
+        if not username or not password:# checks if all 3 form entries were filled out
             return render_template("register.html", warning = "empty field(s)")
 
         #check if user has special chars
         #check for existing username
-        message = addUser(username, password, city)
+        message = addUser(username, password)
         if message:
             return render_template("register.html", warning = message)
         else:
