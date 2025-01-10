@@ -19,6 +19,10 @@ jadyL -- 01-9-25 10:45
 ankitaS -- 01-9-25 19:45
 - added game save info to db (create, add, delete, get functions)
 
+michelleZ -- 01-09-25 23:30
+- added gameSaves function in database to include game elements
+- tested api calls in api.py
+
 jadyL -- 01-10-25 00:02
 - added the git ignore
 - reimplemented the db functions
