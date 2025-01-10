@@ -29,18 +29,13 @@ def getForecast(latitude, longitude):
 getForecast(52.52,13.41);
 
 # ======================================== #
-"""
-template for later
 
-def fetch_openweather(lat, lon):
-    with open("keys/key_OpenWeatherMap.txt", "r") as file:
-        api_key = file.read().strip()
-    if not api_key:
-        raise ValueError("API key file is empty. Please add a valid API key.")
-    response = requests.get(f'''http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&cnt=40&units=imperial&appid={api_key}''')
+
+def getWind():
+    response = requests.get(https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20210601&end_date=20210630&station=8724580&product=wind&time_zone=lst_ldt&interval=h&units=english&application=DataAPI_Sample&format=json)
     if response.status_code == 200:
         return response.json()
-"""
+
 
 
 # ======================================== #
