@@ -43,4 +43,13 @@ ankitaS -- 01-10-25 11:00
 =======
 lindaZ -- 01-10-25 10:48
 - added getWind function to retreive wind data from api
+<<<<<<< HEAD
 >>>>>>> 7b9ecf90da4ae11e1e863bd7d6c5b6ce9321c2f0
+=======
+
+michelleZ -- 01-09-25 23:30
+- tested javascript + got it to work
+- edited roles on DD
+
+
+>>>>>>> 5f14d9b74cb419d1cb0be2d8b7a70bccdcdd2456
