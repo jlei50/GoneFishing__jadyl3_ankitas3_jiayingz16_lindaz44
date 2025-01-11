@@ -109,7 +109,7 @@ def home():
 
 @app.route("/game")
 def game():
-    return render_template("game")
+    return render_template("game.html")
 
 @app.route("/logout")
 def removeSession():
