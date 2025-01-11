@@ -52,5 +52,5 @@ michelleZ -- 01-09-25 23:30
 
 michelleZ -- 01-11-25 16:00
 - finished launch codes & install guide
-- worked on home.html & game.html
-
+- added navbar to game.html
+- added background img + option buttons
