@@ -51,7 +51,6 @@ def deleteUsers():
     c = db.cursor()
     c.execute("DROP table userTable")
 
-<<<<<<< HEAD
 def createGameSavesTable():
     gameSaves = sqlite3.connect(USER_FILE)
     c = gameSaves.cursor()
@@ -59,7 +58,7 @@ def createGameSavesTable():
     c.execute(command)
     gameSaves.commit()
 
-def addGameStats(username):
+def addGameStats(username, day, food, money, progress, crewMood):
     if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone() == None:
         c.execute("INSERT INTO gameSaves (username, day, food, money, progress, crewMood) VALUES (?, ?, ?, ?, ?, ? (username, day, food, money, progress, crewMood))")
         gameSaves.commit()
@@ -76,30 +75,6 @@ def getGameStats(username):
         c.execute("SELECT * FROM gameSaves set day=?, food=?, money=?, progress=?, crewMood=?, WHERE username=?", (day, food, money, progress, crewMood, username))
         gameSaves.commit()
         return c.fetchone()
-
-#]def addDay():
-
-# def addMoney():
-
-
-
-
-
-
-=======
-def gameSaves(username):
-    userTable = sqlite3.conncect(USER_FILE)
-    c = userTable.cursor()
-    c.execute("INSERT INTO userTable (day, food, money, progress, crew_mood) VALUES (?, ?, ?, ?, ?)")
-    return c.fetchall()
-
-def getVoyageLengthDays(username):
-    days = sqlite3.connect(USER_FILE)
-    c = days.cursor()
-    command = "SELECT day FROM userTable"
-    c.execute(command)
-    return c.fetchall()
-    
     
 def getFinalVoyageLengthDays(username):
     days = sqlite3.connect(USER_FILE)
@@ -122,5 +97,4 @@ def addVoyageLength():
     command = "INSERT INTO leaderboardTable (username, voyageLengthDays) VALUES (?, ?)"
     c.execute(command)
     return
->>>>>>> b34d0ce846ad0240c5dec74ba71fc395e26311af
 
