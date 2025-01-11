@@ -54,3 +54,7 @@ michelleZ -- 01-11-25 16:00
 - finished launch codes & install guide
 - added navbar to game.html
 - added background img + option buttons
+
+michelleZ -- 01-11-25 17:45
+- removed navbar
+- created game buttons
