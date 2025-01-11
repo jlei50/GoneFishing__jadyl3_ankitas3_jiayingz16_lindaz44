@@ -101,7 +101,7 @@ def getGameStats(username):
     if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
         c.execute("SELECT * FROM gameSaves WHERE username=?", (username))
         userGameData = c.fetchone()
-        return userGameData
+        return list(userGameData)
 #]def addDay():
 
 # def addMoney
