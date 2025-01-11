@@ -75,6 +75,27 @@ def getGameStats(username):
         c.execute("SELECT * FROM gameSaves set day=?, food=?, money=?, progress=?, crewMood=?, WHERE username=?", (day, food, money, progress, crewMood, username))
         gameSaves.commit()
         return c.fetchone()
+<<<<<<< HEAD
+=======
+
+#]def addDay():
+
+# def addMoney():
+
+def gameSaves(username):
+    userTable = sqlite3.conncect(USER_FILE)
+    c = userTable.cursor()
+    c.execute("INSERT INTO userTable (day, food, money, progress, crew_mood) VALUES (?, ?, ?, ?, ?)")
+    return c.fetchall()
+
+def getVoyageLengthDays(username):
+    days = sqlite3.connect(USER_FILE)
+    c = days.cursor()
+    command = "SELECT day FROM userTable"
+    c.execute(command)
+    return c.fetchall()
+    
+>>>>>>> 6cc9195cc37373cba1cb2011dbb9953dfe22db7f
     
 def getFinalVoyageLengthDays(username):
     days = sqlite3.connect(USER_FILE)

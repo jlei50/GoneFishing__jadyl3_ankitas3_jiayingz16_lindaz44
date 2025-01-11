@@ -32,7 +32,7 @@ getForecast(52.52,13.41);
 
 
 def getWind():
-    response = requests.get(https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20210601&end_date=20210630&station=8724580&product=wind&time_zone=lst_ldt&interval=h&units=english&application=DataAPI_Sample&format=json)
+    response = requests.get("https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20210601&end_date=20210630&station=8724580&product=wind&time_zone=lst_ldt&interval=h&units=english&application=DataAPI_Sample&format=json")
     if response.status_code == 200:
         return response.json()
 
