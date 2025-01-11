@@ -51,7 +51,6 @@ def deleteUsers():
     c = db.cursor()
     c.execute("DROP table userTable")
 
-<<<<<<< HEAD
 def createGameSavesTable():
     gameSaves = sqlite3.connect(USER_FILE)
     c = gameSaves.cursor()
@@ -81,12 +80,6 @@ def getGameStats(username):
 
 # def addMoney():
 
-
-
-
-
-
-=======
 def gameSaves(username):
     userTable = sqlite3.conncect(USER_FILE)
     c = userTable.cursor()
@@ -122,5 +115,4 @@ def addVoyageLength():
     command = "INSERT INTO leaderboardTable (username, voyageLengthDays) VALUES (?, ?)"
     c.execute(command)
     return
->>>>>>> b34d0ce846ad0240c5dec74ba71fc395e26311af
 

@@ -14,7 +14,7 @@ import random
 from flask import Flask, render_template, redirect, session, request, flash, jsonify
 
 # from sitedb import *
-from apis import *
+from api import *
 #custom module
 from sitedb import *
 # from apis import *
