@@ -13,7 +13,10 @@ import random
 
 from flask import Flask, render_template, redirect, session, request, flash, jsonify
 
+<<<<<<< HEAD
 # from sitedb import *
+=======
+>>>>>>> 58679a11b93b177e5fef7ed0794d337b7db45482
 #from apis import *
 from api import *
 #custom module
@@ -90,7 +93,7 @@ def home():
 
 @app.route("/game")
 def game():
-    return render_template("game")
+    return render_template("game.html")
 
 @app.route("/logout")
 def removeSession():
@@ -100,10 +103,6 @@ def removeSession():
 @app.route("/map")
 def map():
     return render_template("map")
-
-
-
-
 
 if __name__ == "__main__":
     app.debug = True
