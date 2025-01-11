@@ -6,6 +6,8 @@
 import urllib.request
 import json
 
+from sitedb import *
+
 # ======================================== #
 
 # weather API documentation (no API keys required):
@@ -17,8 +19,8 @@ import json
 forecast = f"https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41"
 
 data = urllib.request.urlopen(forecast)
-print(json.loads(data.read()))
-
+#print(json.loads(data.read()))
+    
 def getForecast(latitude, longitude):
     url = f"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&hourly=temperature_2m&hourly=apparent_temperature&hourly=weather_code"
     data = urllib.request.urlopen(url)

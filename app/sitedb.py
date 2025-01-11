@@ -2,6 +2,11 @@ import sqlite3
 
 USER_FILE="sea.db"
 
+def runFunctions():
+    createUsers()
+    createGameSavesTable()
+    createLeaderboard()
+
 def createUsers():
     userTable = sqlite3.connect(USER_FILE)
     c = userTable.cursor()
@@ -46,6 +51,14 @@ def returnEntireUsersTable():
     c.execute("SELECT * FROM userTable")
     return c.fetchall()
 
+def getUserInfo(username):
+    db = sqlite3.connect(USER_FILE)
+    c = db.cursor()
+    c.execute("SELECT * FROM users WHERE username = ?", (username,))
+    userData = c.fetchone()
+    db.close()
+    return userData
+
 def deleteUsers():
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
@@ -58,35 +71,37 @@ def createGameSavesTable():
     c.execute(command)
     gameSaves.commit()
 
+#use when first adding stas for user
 def addGameStats(username, day, food, money, progress, crewMood):
-    if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone() == None:
-        c.execute("INSERT INTO gameSaves (username, day, food, money, progress, crewMood) VALUES (?, ?, ?, ?, ?, ? (username, day, food, money, progress, crewMood))")
+    gameSaves = sqlite3.connect(USER_FILE)
+    c = gameSaves.cursor()
+    if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
+        c.execute("INSERT INTO gameSaves (username, day, food, money, progress, crewMood) VALUES (?, ?, ?, ?, ?, ?)", (username, day, food, money, progress, crewMood))
         gameSaves.commit()
     return "game stats added"
 
-def saveGame(username):
-    if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone() == None:
-        c.execute("UPDATE gameSaves set day=?, food=?, money=?, progress=?, crewMood=?, WHERE username=?", (day, food, money, progress, crewMood, username))
+#use once user stats in database
+def saveGame(username, day, food, money, progress, crewMood):
+    gameSaves = sqlite3.connect(USER_FILE)
+    c = gameSaves.cursor()
+    if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
+        c.execute("UPDATE gameSaves set day=?, food=?, money=?, progress=?, crewMood=? WHERE username=?", (day, food, money, progress, crewMood, username))
         gameSaves.commit()
     return "game stats added"
+
+def returnSaveGamesTable():
+    gameSaves = sqlite3.connect(USER_FILE)
+    c = gameSaves.cursor()
+    c.execute("SELECT * FROM gameSaves")
+    return c.fetchall()
 
 def getGameStats(username):
-    if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone() == None:
-        c.execute("SELECT * FROM gameSaves set day=?, food=?, money=?, progress=?, crewMood=?, WHERE username=?", (day, food, money, progress, crewMood, username))
-        gameSaves.commit()
-        return c.fetchone()
-<<<<<<< HEAD
-=======
-
-#]def addDay():
-
-# def addMoney():
-
-def gameSaves(username):
-    userTable = sqlite3.conncect(USER_FILE)
-    c = userTable.cursor()
-    c.execute("INSERT INTO userTable (day, food, money, progress, crew_mood) VALUES (?, ?, ?, ?, ?)")
-    return c.fetchall()
+    gameSaves = sqlite3.connect(USER_FILE)
+    c = gameSaves.cursor()
+    if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
+        c.execute("SELECT * FROM gameSaves WHERE username=?", (username))
+        userGameData = c.fetchone()
+        return userGameData
 
 def getVoyageLengthDays(username):
     days = sqlite3.connect(USER_FILE)
@@ -94,8 +109,6 @@ def getVoyageLengthDays(username):
     command = "SELECT day FROM userTable"
     c.execute(command)
     return c.fetchall()
-    
->>>>>>> 6cc9195cc37373cba1cb2011dbb9953dfe22db7f
     
 def getFinalVoyageLengthDays(username):
     days = sqlite3.connect(USER_FILE)
@@ -119,3 +132,15 @@ def addVoyageLength():
     c.execute(command)
     return
 
+
+#     TESTING
+#  print("hi")
+#     createUsers()
+#     createGameSavesTable()
+#     addUser("j", "j")
+#     p = returnEntireUsersTable()[2][0]
+#     print("username:" + p)
+#     addGameStats(p, 0, "fg", 4, 8, "hf")
+#     saveGame(p, 9,"lllllllllllll",0,0,"ftg")
+#     print(getGameStats(p))
+#     print(returnSaveGamesTable())
