@@ -58,3 +58,4 @@ michelleZ -- 01-11-25 16:00
 michelleZ -- 01-11-25 17:45
 - removed navbar
 - created game buttons
+- styled game page
