@@ -13,10 +13,8 @@ import random
 
 from flask import Flask, render_template, redirect, session, request, flash, jsonify
 
-<<<<<<< HEAD
 # from sitedb import *
-=======
->>>>>>> 58679a11b93b177e5fef7ed0794d337b7db45482
+
 #from apis import *
 from api import *
 #custom module
