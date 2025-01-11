@@ -9,3 +9,44 @@ michelleZ -- 01-8-25 23:30
 jadyL -- 01-9-25 00:30
 - checked over document
 - updated overview and replaced README overview.
+
+ankitaS -- 01-9-25 10:45
+- added login info and tables to db
+
+jadyL -- 01-9-25 10:45
+- setup flask and got the pages to load
+
+lindaZ -- 01-09-23 10:50
+- started drawing background for the game
+
+ankitaS -- 01-9-25 19:45
+- added game save info to db (create, add, delete, get functions)
+
+michelleZ -- 01-09-25 23:30
+- added gameSaves function in database to include game elements
+- tested api calls in api.py
+
+jadyL -- 01-10-25 00:02
+- added the git ignore
+- reimplemented the db functions
+- had to fix them
+
+lindaZ -- 01-10-25 02:56
+- finished background for the game
+- working on functions for api calling
+- working on making api keys for noaa site
+
+jadyL -- 01-10-25 11:01
+- play around with the html for home page using fef
+
+ankitaS -- 01-10-25 11:00
+- added info for leaderboard DB 
+- added functions for returning current voyage days, and final voyage DAYS, if reached
+
+lindaZ -- 01-10-25 10:48
+- added getWind function to retreive wind data from api
+
+michelleZ -- 01-09-25 23:30
+- tested javascript + got it to work
+- edited roles on DD
+

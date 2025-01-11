@@ -15,16 +15,20 @@ def addUser(username, password):
     if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone() == None:
         c.execute("INSERT INTO userTable (username, password) VALUES (?, ?)", (username, password))
         userTable.commit()
-    return "Username added"
+        return
+    # return "Username added"
 
 def checkPass(username, password):
     userTable = sqlite3.connect(USER_FILE)
     c = userTable.cursor()
     c.execute("SELECT password FROM userTable WHERE username=?", (username,))
     f = c.fetchone()
-    if (password == f[0]):
-        return True
-    return "Invalid login"
+    print(f)
+    if (f == None):
+        return False
+    if ( password != f[0]):
+        return False
+    return True
 
 def checkUser(username, password):
     userTable = sqlite3.connect(USER_FILE)
@@ -35,11 +39,19 @@ def checkUser(username, password):
         return True
     return "Invalid login"
 
+# dev stuff
+def returnEntireUsersTable():
+    db = sqlite3.connect(USER_FILE)
+    c = db.cursor()
+    c.execute("SELECT * FROM userTable")
+    return c.fetchall()
+
 def deleteUsers():
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
     c.execute("DROP table userTable")
 
+<<<<<<< HEAD
 def createGameSavesTable():
     gameSaves = sqlite3.connect(USER_FILE)
     c = gameSaves.cursor()
@@ -74,4 +86,41 @@ def getGameStats(username):
 
 
 
+=======
+def gameSaves(username):
+    userTable = sqlite3.conncect(USER_FILE)
+    c = userTable.cursor()
+    c.execute("INSERT INTO userTable (day, food, money, progress, crew_mood) VALUES (?, ?, ?, ?, ?)")
+    return c.fetchall()
+
+def getVoyageLengthDays(username):
+    days = sqlite3.connect(USER_FILE)
+    c = days.cursor()
+    command = "SELECT day FROM userTable"
+    c.execute(command)
+    return c.fetchall()
+    
+    
+def getFinalVoyageLengthDays(username):
+    days = sqlite3.connect(USER_FILE)
+    c = days.cursor()
+    #if progress from userTable == 100, return command, if not, return -1 --> in add voyagfe legnth, if voyage length -1, do not add
+    command = "SELECT day FROM userTable"
+    c.execute(command)
+    return c.fetchall()
+
+def createLeaderboard():
+    leaderboardTable = sqlite3.connect(USER_FILE)
+    c = leaderboardTable.cursor()
+    command = "CREATE TABLE IF NOT EXISTS leaderboardTable (username TEXT, voyageLengthDays INTEGER)"
+    c.execute(command)
+    leaderboardTable.commit()
+    
+def addVoyageLength():
+    leaderboardTable = sqlite3.connect(USER_FILE)
+    c = leaderboardTable.cursor()
+    command = "INSERT INTO leaderboardTable (username, voyageLengthDays) VALUES (?, ?)"
+    c.execute(command)
+    return
+>>>>>>> b34d0ce846ad0240c5dec74ba71fc395e26311af
 
