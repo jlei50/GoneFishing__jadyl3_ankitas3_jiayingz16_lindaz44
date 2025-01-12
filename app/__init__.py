@@ -13,19 +13,13 @@ import random
 
 from flask import Flask, render_template, redirect, session, request, flash, jsonify
 
-# from sitedb import *
-
-#from apis import *
-from api import *
+import api
 #custom module
 from sitedb import *
-
-
-# from apis import *
 # from html_builder import *
 
 # flask App
-app = Flask(__name__, template_folder = "templates", static_folder = "../static")
+app = Flask(__name__, template_folder = "templates", static_folder = "static")
 app.secret_key = os.urandom(32)
 
 @app.route("/")# checks for session and sends user to appropriate spot
@@ -91,7 +85,32 @@ def home():
 
 @app.route("/game")
 def game():
-    return render_template("game.html")
+    #stop from randomizing wind and speed after each refresh
+    if 'wind_speed' not in session or 'wind_dir' not in session:
+        beegFile = api.getWind()
+        data = (beegFile['data'])
+        random_int = random.randint(1,700)
+        day_data = (data[random_int])
+        session['wind_speed'] = day_data['s']
+        session['wind_dir'] = day_data['dr']
+        print(session['wind_speed'])
+        print(session['wind_dir'])
+    else:
+        print(session['wind_speed'])
+        print(session['wind_dir'])
+    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'])
+
+@app.route("/new_day")
+def newDay():
+    session.pop('wind_speed', None)
+    session.pop('wind_dir', None)
+    beegFile = api.getWind()
+    data = (beegFile['data'])
+    random_int = random.randint(1,700)
+    day_data = (data[random_int])
+    session['wind_speed'] = day_data['s']
+    session['wind_dir'] = day_data['dr']
+    return redirect("game")
 
 @app.route("/logout")
 def removeSession():

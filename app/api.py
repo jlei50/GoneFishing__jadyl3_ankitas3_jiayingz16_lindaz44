@@ -5,6 +5,7 @@
 
 import urllib.request
 import json
+import requests
 
 from sitedb import *
 
@@ -28,7 +29,7 @@ def getForecast(latitude, longitude):
     temp = weather_dict["hourly"]["weather_code"]
     print(temp)
 
-getForecast(52.52,13.41);
+getForecast(52.52,13.41)
 
 # ======================================== #
 
