@@ -35,15 +35,15 @@ def getForecast(latitude, longitude):
     print("username:" + p)
     addGameStats(p, 0, 3, 4, 8, "hf")
     saveGame(p, 9,3,0,0,"ftg")
-    updateVoyageLength(p, 4)
-    updateVoyageLength(p, 6)
+    #updateVoyageLength(p, 4)
+    #updateVoyageLength(p, 6)
     print("voyage days:" + str(getVoyageLengthDays(p)))
     print("updated voyage:" + str(getVoyageLengthDays(p)))
     print(getGameStats(p))
     print(returnSaveGamesTable())
     print(temp)
 
-getForecast(52.52,13.41)
+#getForecast(52.52,13.41)
 
 # ======================================== #
 

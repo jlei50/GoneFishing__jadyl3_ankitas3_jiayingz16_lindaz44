@@ -101,9 +101,9 @@ def game():
         progress = 0
         crewMood = 'Calm'
         addGameStats(username, day, food, money, progress, crewMood)
-        saveGame(username, day, food, money, progress, crewMood)
-    
-    saveGame(username, day, food, money, getProgress(username), crewMood)
+        saveGame(username, day, food, money, progress, crewMood)  
+    else:
+        saveGame(username, stats[1], stats[2], stats[3], stats[4], stats[5])
     
     #stop from randomizing wind and speed after each refresh
     if 'wind_speed' not in session or 'wind_dir' not in session:

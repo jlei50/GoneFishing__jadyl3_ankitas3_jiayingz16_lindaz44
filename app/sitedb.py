@@ -105,7 +105,6 @@ def getGameStats(username):
 # def addDay():
 
 # def addMoney
-<<<<<<< HEAD
 # 
 # def createLeaderboard():
 #     leaderboardTable = sqlite3.connect(USER_FILE)
@@ -154,7 +153,7 @@ def getGameStats(username):
 # 
 # 
 # 
-=======
+
 
 def createLeaderboard():
     leaderboardTable = sqlite3.connect(USER_FILE)
@@ -174,7 +173,7 @@ def getProgress(username):
     gameSaves = sqlite3.connect(USER_FILE)
     c = gameSaves.cursor()
     if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
-        c.execute("SELECT * FROM gameSaves WHERE username=?", (username))
+        c.execute("SELECT * FROM gameSaves WHERE username=?", (username,))
         userProgress = c.fetchone()[3]
         return userProgress
 
@@ -196,8 +195,6 @@ def finalVoyageLength(usrename):
 
 
 
-
->>>>>>> 6bea3dfd57e347b70e97c8ad811e45468058c2ff
 
 #     TESTING
 #     print("hi")
