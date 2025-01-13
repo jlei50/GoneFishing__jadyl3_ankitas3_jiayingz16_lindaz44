@@ -7,40 +7,59 @@
         .background{
             width:100%;
             overflow:hidden;
+            position:relative;
             z-index: -1;
         }
 
         .scroller{
             display:flex;
-            white-space: nowrap;
-            animation: scroll 20s linear infinite;
+            animation: scroll 10s linear infinite;
         }
 
         .scroller img{
-            width:auto;
-            height:auto;
+          width:210%;
+          flex-shrink:0;
         }
 
         @keyframes scroll {
-            0% {
-            transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-200%);
-            }
+          0%{
+          transform: translateX(0);
+          }
+          100%{
+              transform: translateX(-210%);
+          }
         }
 
         .boat {
-            position: absolute;
-            top:10%;
-            left: 5%;
+          display: inline-flex;
+          position: absolute;
+          top:10%;
+          left: 5%;
+        }
+
+        .boat img{
+          display: inline-flex;
+          width: 100%;
         }
 
         .fish {
-            position: absolute;
-            mix-blend-mode: multiply;
-            top:10%;
-            right:2%;
+          display: inline-flex;
+          position: absolute;
+          mix-blend-mode: multiply;
+          top:10%;
+          right:2%;
+        }
+
+        .crew{
+          display: inline-flex;
+          position: absolute;
+          mix-blend-mode: multiply;
+          top:15%;
+          right:2.5%;
+        }
+
+        .crew p{
+          right:4%;
         }
 
         .day {
@@ -58,7 +77,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <ul class="nav nav-pills">
           <li class="nav-item">
-            <a class="nav-link active" href="/game">New Game</a>
+            <a class="nav-link active" href="#">New Game</a>
           </li>
         </ul>
         <ul class="nav nav-pills">
@@ -68,7 +87,7 @@
         </ul>
         <ul class="nav nav-pills">
           <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" href="/logout">Logout</a>
           </li>
         </ul>
       </ul>
@@ -82,7 +101,7 @@
     </div>
 
     <div class="day">
-        <p>Day{{day}}</p>
+        <p>Day {{day}}</p>
     </div>
 
     <div class="boat">
@@ -91,13 +110,30 @@
 
     <div class="fish">
         <p>{{num_fish}}</p>
-        <img src="{{ url_for('static', filename='fish.jpg') }}" width="50" height="50">
+        <img src="{{ url_for('static', filename='fish.jpg') }}" width="50" height="25">
 
     </div>
 
+    <div class="crew">
+      <p class="pe-2">{{crew}}</p>
+      <img src="{{ url_for('static', filename='crew.png') }}" width="35" height="35">
+
+    </div>
+
+    <div class="sailChoice">
+      <a href="/sailChoice" class="btn btn-primary m-3" style="position:absolute; left:35%;">Sail</a>
+    </div>
+
+    <div class="fishChoice">
+      <a href="/fishChoice" class="btn btn-primary m-3" style="position:absolute; left:50%;">Fish</a>
+    </div>
+
     <p>current wind speed: {{speed}} mph</p>
-    <p>current wind direction: {{direction}} mph</p>
+    <p>course: {{course}} / current wind direction: {{direction}} mph</p>
+    <p>miles traveled: {{miles}} / progress: {{progress}}%</p>
+
     <a href="/new_day" class="btn btn-primary m-3">Next Day</a>
+    <p>Notes: course is the direction you want to head in. keep in mind the wind direction relative to your course</p>
   </body>
 
 </html>

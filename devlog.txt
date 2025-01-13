@@ -111,3 +111,9 @@ jadyL -- 01-13-25 11:02
 
 lindaZ -- 01-13-25 14:25
 - fixed issue with gameSave
+- added sailing option (distance will depend on wind direction)
+- added ship course to session
+- added current progress to game.html page
+- added get and update functions to sitedb.py
+- food and crew will now deplete over time
+- added death and win screen

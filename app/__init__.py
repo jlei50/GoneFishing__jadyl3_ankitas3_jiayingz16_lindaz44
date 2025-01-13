@@ -14,6 +14,7 @@ import random
 from flask import Flask, render_template, redirect, session, request, flash, jsonify
 
 import api
+import sitedb
 #custom module
 from sitedb import *
 # from html_builder import *
@@ -25,8 +26,7 @@ app.secret_key = os.urandom(32)
 @app.route("/")# checks for session and sends user to appropriate spot
 def checkSession():
     # setup functions go here:
-    createUsers()
-    createGameSavesTable()
+    runFunctions()
 
     return redirect("/home")
     # if 'username' in session:
@@ -76,6 +76,11 @@ def register():
 
     return render_template("register.html")
 
+@app.route('/logout', methods=["GET", "POST"])
+def logout():
+    session.pop('username', None)
+    return redirect("/home")
+
 @app.route("/home")
 def home():
     return render_template("home.html")
@@ -97,12 +102,12 @@ def game():
         createGameSavesTable()
         day = 1
         food = 10
-        money = 100
+        crew = 20
         progress = 0
         crewMood = 'Calm'
-        addGameStats(username, day, food, money, progress, crewMood)
-        saveGame(username, day, food, money, progress, crewMood)  
-    else:
+        addGameStats(username, day, food, crew, progress, crewMood)
+        saveGame(username, day, food, crew, progress, crewMood)  
+    else: #references stats var otherwise
         saveGame(username, stats[1], stats[2], stats[3], stats[4], stats[5])
     
     #stop from randomizing wind and speed after each refresh
@@ -111,33 +116,67 @@ def game():
         data = (beegFile['data'])
         random_int = random.randint(1,700)
         day_data = (data[random_int])
-        session['wind_speed'] = day_data['s']
-        session['wind_dir'] = day_data['dr']
+        wind_speed = day_data['s']
+        wind_dir = day_data['dr']
+        if not wind_speed:
+            wind_speed=2.2
+        if not wind_dir:
+            wind_dir="SE"
+        session['wind_speed'] = wind_speed
+        session['wind_dir'] = wind_dir
         print(session['wind_speed'])
         print(session['wind_dir'])
     else:
         print(session['wind_speed'])
         print(session['wind_dir'])
+    
+    courses = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW","SES", "SSE", "ESE", "ENE", "EEN"]
+    session['course'] = courses[random.randint(0,20)]
 
-    num_day = getVoyageLengthDays(username);
-    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day)
+    details = getGameStats(username)
+    num_day = getVoyageLengthDays(username)
+    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], progress=round((details[4]/30), 2))
+
+@app.route("/sailChoice")
+def sailChoice():
+    print(session.get('wind_speed'))
+    if session['wind_dir'] == session['course']:
+        wind=1 #user heading in right direction, wind doesn't impact them
+    if any(charA == charB for charA in session['wind_dir'] for charB in session['course']):
+        wind=0.5 #wind slightly stopping user
+    else:
+        wind=-1 #user goes back bc of pushing winds
+
+    progress = float(session.get('wind_speed'))*15*wind
+    updateProgress(session.get('username'), progress)
+    return redirect("/new_day")
 
 @app.route("/new_day")
 def newDay():
     session.pop('wind_speed', None)
     session.pop('wind_dir', None)
+    if (random.randint(0,10)<5): #randomly depletes food
+        updateFood(session['username'])
+    if(getFood(session['username'])<=0):
+        updateCrew(random.randint(0,3), session['username'])
+    if(getCrew(session['username'])<=0):
+        return render_template("end.html")
+    if((getProgress(session['username'])/30)>=100):
+        return render_template("win.html")
     beegFile = api.getWind()
     data = (beegFile['data'])
     random_int = random.randint(1,700)
     day_data = (data[random_int])
-    session['wind_speed'] = day_data['s']
-    session['wind_dir'] = day_data['dr']
-    return redirect("game")
-
-@app.route("/logout")
-def removeSession():
-    session.pop('username', None)
-    return redirect("/")
+    wind_speed = day_data['s']
+    wind_dir = day_data['dr']
+    if not wind_speed:
+        wind_speed=2.2
+    if not wind_dir:
+        wind_dir="SE"
+    session['wind_speed'] = wind_speed
+    session['wind_dir'] = wind_dir
+    sitedb.updateDay(session['username'])
+    return redirect("/game")
 
 @app.route("/map")
 def map():
