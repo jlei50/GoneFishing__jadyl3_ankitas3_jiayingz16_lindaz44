@@ -30,10 +30,25 @@
             }
         }
 
-        .boat{
+        .boat {
             position: absolute;
             top:10%;
             left: 5%;
+        }
+
+        .fish {
+            position: absolute;
+            mix-blend-mode: multiply;
+            top:10%;
+            right:2%;
+        }
+
+        .day {
+            position: absolute;
+            top:10%;
+            left:2%;
+            font-weight: bold;
+            font-size: 18px;
         }
 
     </style>
@@ -66,8 +81,17 @@
         </div>
     </div>
 
+    <div class="day">
+        <p>Day{{day}}</p>
+    </div>
+
     <div class="boat">
-        <img src="{{ url_for('static', filename='placeholder.png') }}" alt="background">
+        <img src="{{ url_for('static', filename='placeholder.png') }}">
+    </div>
+
+    <div class="fish">
+        <img src="{{ url_for('static', filename='fish.jpg') }}" width="50" height="50">
+        
     </div>
 
     <p>current wind speed: {{speed}} mph</p>

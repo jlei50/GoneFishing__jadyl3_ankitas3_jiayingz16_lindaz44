@@ -36,17 +36,17 @@ lindaZ -- 01-10-25 02:56
 - working on functions for api calling
 - working on making api keys for noaa site
 
-jadyL -- 01-10-25 11:01
-- play around with the html for home page using fef
+lindaZ -- 01-10-25 10:48
+- added getWind function to retreive wind data from api
 
 ankitaS -- 01-10-25 11:00
 - added info for leaderboard DB 
 - added functions for returning current voyage days, and final voyage DAYS, if reached
 
-lindaZ -- 01-10-25 10:48
-- added getWind function to retreive wind data from api
+jadyL -- 01-10-25 11:01
+- play around with the html for home page using fef
 
-michelleZ -- 01-09-25 23:30
+michelleZ -- 01-11-25 23:30
 - tested javascript + got it to work
 - edited roles on DD
 
@@ -60,15 +60,6 @@ michelleZ -- 01-11-25 17:45
 - created game buttons
 - styled game page
 
-ankitaS -- 01-11-2025 2:00
-- tested db functions for game save
-- fixed formatting
-
-ankitaS -- 01-11-2025 7:00
-- debugged functions for game save and pushed correct functions
-- finalized gamesav, addgamestats, getgamestats
-- added return all game stats table
-
 lindaZ --01-12-25 05:00
 - fixed issues with css and bootstrap
 - buttons functioning
@@ -76,7 +67,14 @@ lindaZ --01-12-25 05:00
 - background image for game scrolls now through animation
 - added wind speed and direction to session as variables
 
-jadyL -- 01-12-25 10:09
+michelleZ -- 01-12-25 21:00
+- edited html
+- fixed api errors
+- added fish & day features to game
+- linked game html with db to display day
+
+jadyL -- 01-12-25 22:09
 - change game bg to vh and vw
 - stylize home page
 - add logo.png
+
