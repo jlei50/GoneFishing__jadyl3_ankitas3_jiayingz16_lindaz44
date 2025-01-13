@@ -144,7 +144,6 @@ def voyageFinished(username):
 def finalVoyageLength(usrename):
     if voyageFinished():
         return getVoyageLengthDays(username)
->>>>>>> 285746360a4015486635d0f334c3dbd01d3ee25b
 
 def createLeaderboard():
     leaderboardTable = sqlite3.connect(USER_FILE)
