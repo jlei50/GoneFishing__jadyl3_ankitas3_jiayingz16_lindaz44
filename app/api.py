@@ -43,7 +43,6 @@ getForecast(52.52,13.41)
 
 # ======================================== #
 
-
 def getWind():
     url = f"https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20210601&end_date=20210630&station=8724580&product=wind&time_zone=lst_ldt&interval=h&units=english&application=DataAPI_Sample&format=json"
     data = urllib.request.urlopen(url)

@@ -102,5 +102,9 @@ jadyL -- 01-13-25 10:41
 - change login html and register html
 - fix login redirects
 
-jadyL -- 01-13-25 10:41
+lindaZ -- 01-13-25 10:58
+- working on fixing issues with wrapping image
+- working on game progression + user options
+
+jadyL -- 01-13-25 11:02
 - change register to match login
