@@ -38,9 +38,6 @@ def login():
     if 'username' in session:
         return redirect("/home")
 
-    print(returnEntireUsersTable())
-    print("test")
-
     if request.method =="POST":
         username = request.form.get("username")
         password = request.form.get("password")
