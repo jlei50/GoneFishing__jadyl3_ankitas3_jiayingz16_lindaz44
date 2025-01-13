@@ -124,7 +124,7 @@ def game():
     money = stats[3]
     progress = stats[4]
     crewMood = stats[5]
-    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=day, fish=fish, crewMood=crewMood)
+    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=day, fish=fish, crewMood=crewMood, money=money)
 
 @app.route("/new_day")
 def newDay():

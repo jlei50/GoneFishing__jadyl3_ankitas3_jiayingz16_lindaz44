@@ -58,9 +58,17 @@
             right:2%;
         }
 
+        .money {
+            position: absolute;
+            mix-blend-mode: multiply;
+            opacity: 1;
+            top: 18%;
+            right:2%;
+        }
+
         #fish {
             position: absolute;
-            top: 10%;
+            top: 10.5%;
             right: 5%;
             font-weight: bold;
             color: black;
@@ -69,7 +77,16 @@
 
         #crewMood {
             position: absolute;
-            top: 13%;
+            top: 14%;
+            right: 5%;
+            font-weight: bold;
+            color: black;
+            font-size: 18px;
+        }
+
+        #money {
+            position: absolute;
+            top: 19%;
             right: 5%;
             font-weight: bold;
             color: black;
@@ -128,6 +145,14 @@
 
     <div class="crewMood">
         <img src="{{ url_for('static', filename='smile.webp') }}" width="50" height="50">
+    </div>
+
+    <div id="money">
+        <p>{{ money }}</p>
+    </div>
+
+    <div class="money">
+        <img src="{{ url_for('static', filename='money.jpg') }}" width="50" height="50">
     </div>
 
     <p>current wind speed: {{speed}} mph</p>
