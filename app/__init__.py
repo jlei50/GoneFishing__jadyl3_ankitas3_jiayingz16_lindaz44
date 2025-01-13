@@ -51,7 +51,7 @@ def login():
 
         if checkPass(username, password):# if password is correct, given user exists
             session["username"] = username# adds user to session
-            return redirect("/home")
+            return redirect("/game")
 
         else:# if password isnt correct
             flash("Invalid username/password", "error")

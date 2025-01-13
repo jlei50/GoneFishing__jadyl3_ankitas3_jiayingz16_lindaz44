@@ -26,6 +26,17 @@ def getForecast(latitude, longitude):
     data = urllib.request.urlopen(url)
     weather_dict = json.loads(data.read())
     temp = weather_dict["hourly"]["weather_code"]
+    print("hi")
+#     createUsers()
+#     createGameSavesTable()
+#     createLeaderboard()
+#     addUser("j", "j")
+#     p = returnEntireUsersTable()[2][0]
+#     print("username:" + p)
+#     addGameStats(p, 0, "fg", 4, 8, "hf")
+#     saveGame(p, 9,"lllllllllllll",0,0,"ftg")
+#     print(getGameStats(p))
+#     print(returnSaveGamesTable())
     print(temp)
 
 getForecast(52.52,13.41)
