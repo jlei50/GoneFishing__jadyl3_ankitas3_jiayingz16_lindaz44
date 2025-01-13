@@ -119,17 +119,6 @@ def getVoyageLengthDays(username):
     c.execute("SELECT day FROM gameSaves WHERE username=?", (username,))
     day = c.fetchone()
     return day[0]
-    
-def getFinalVoyageLengthDays(username):
-    days = sqlite3.connect(USER_FILE)
-    c = days.cursor()
-    #if progress from userTable == 100, return command, if not, return -1 --> in add voyagfe legnth, if voyage length -1, do not add
-    command = "SELECT day FROM userTable"
-    c.execute(command)
-    return c.fetchall()
-    if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
-        c.execute("SELECT day FROM gameSaves WHERE username=?", (username,))
-        return c.fetchall()
 
 def getProgress(username):
     gameSaves = sqlite3.connect(USER_FILE)

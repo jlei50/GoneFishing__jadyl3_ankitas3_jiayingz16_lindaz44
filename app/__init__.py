@@ -95,20 +95,18 @@ def game():
         print("Error: Username not found in session.")
         return redirect('/login')
 
-    createGameSavesTable()
-
     stats = getGameStats(username)
-    #print(stats)
-
     if not stats: # check if initial stats exist
+        createGameSavesTable()
         day = 1
         food = 10
         money = 100
         progress = 0
         crewMood = 'Calm'
         addGameStats(username, day, food, money, progress, crewMood)
-
-    #saveGame(username, day, food, money, progress, crewMood)
+        saveGame(username, day, food, money, progress, crewMood)
+    
+    saveGame(username, day, food, money, getProgress(username), crewMood)
     
     #stop from randomizing wind and speed after each refresh
     if 'wind_speed' not in session or 'wind_dir' not in session:
