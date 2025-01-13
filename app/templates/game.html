@@ -43,7 +43,6 @@
         }
 
         .fish {
-<<<<<<< HEAD
           display: inline-flex;
           position: absolute;
           mix-blend-mode: multiply;
@@ -86,7 +85,7 @@
             right:2%;
         }
 
-        #fish {
+        .fish p{
             position: absolute;
             top: 10.5%;
             right: 5%;
@@ -95,7 +94,7 @@
             font-size: 18px;
         }
 
-        #crewMood {
+        .crewMood p{
             position: absolute;
             top: 14%;
             right: 5%;
@@ -104,7 +103,7 @@
             font-size: 18px;
         }
 
-        #money {
+        .money p{
             position: absolute;
             top: 19%;
             right: 5%;
@@ -154,27 +153,21 @@
     <div class="fish">
         <p>{{num_fish}}</p>
         <img src="{{ url_for('static', filename='fish.jpg') }}" width="50" height="25">
-
-    <div id="crewMood">
-        <p>{{ crewMood }}</p>
     </div>
 
     <div class="crewMood">
-        <img src="{{ url_for('static', filename='smile.webp') }}" width="50" height="50">
-    </div>
-
-    <div id="money">
-        <p>{{ money }}</p>
+      <p>{{ crewMood }}</p>
+      <img src="{{ url_for('static', filename='smile.webp') }}" width="50" height="50">
     </div>
 
     <div class="money">
-        <img src="{{ url_for('static', filename='money.jpg') }}" width="50" height="50">
+      <p>{{ money }}</p>
+      <img src="{{ url_for('static', filename='money.jpg') }}" width="50" height="50">
     </div>
 
     <div class="crew">
       <p class="pe-2">{{crew}}</p>
       <img src="{{ url_for('static', filename='crew.png') }}" width="35" height="35">
-
     </div>
 
     <div class="sailChoice">
@@ -185,9 +178,12 @@
       <a href="/fishChoice" class="btn btn-primary m-3" style="position:absolute; left:50%;">Fish</a>
     </div>
 
-    <p>current wind speed: {{speed}} mph</p>
-    <p>course: {{course}} / current wind direction: {{direction}} mph</p>
-    <p>miles traveled: {{miles}} / progress: {{progress}}%</p>
+    <div class="details">
+      <p>current wind speed: {{speed}} mph</p>
+      <p>course: {{course}} / current wind direction: {{direction}} mph</p>
+      <p>miles traveled: {{miles}} / progress: {{progress}}%</p>
+    </div>
+    
 
     <a href="/new_day" class="btn btn-primary m-3">Next Day</a>
     <p>Notes: course is the direction you want to head in. keep in mind the wind direction relative to your course</p>
