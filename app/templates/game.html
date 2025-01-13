@@ -43,6 +43,13 @@
             right:2%;
         }
 
+        .day {
+            position: absolute;
+            top:10%;
+            left:2%;
+            font-weight: bold;
+        }
+
     </style>
 </head>
   <body>
@@ -71,6 +78,10 @@
             <img src="{{ url_for('static', filename='bg.jpg') }}" alt="background">
             <img src="{{ url_for('static', filename='bg.jpg') }}" alt="background">
         </div>
+    </div>
+
+    <div class="day">
+        <p>Day 1</p>
     </div>
 
     <div class="boat">
