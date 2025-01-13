@@ -17,8 +17,8 @@
         }
 
         .scroller img{
-            width: 200%;
-            height: auto;
+            width: 300vw;
+            height: 70vh;
         }
 
         @keyframes scroll {
@@ -30,10 +30,24 @@
             }
         }
 
-        .boat{
+        .boat {
             position: absolute;
             top:10%;
             left: 5%;
+        }
+
+        .fish {
+            position: absolute;
+            mix-blend-mode: multiply;
+            top:10%;
+            right:2%;
+        }
+
+        .day {
+            position: absolute;
+            top:10%;
+            left:2%;
+            font-weight: bold;
         }
 
     </style>
@@ -66,8 +80,17 @@
         </div>
     </div>
 
+    <div class="day">
+        <p>Day 1</p>
+    </div>
+
     <div class="boat">
         <img src="{{ url_for('static', filename='placeholder.png') }}" alt="background">
+    </div>
+
+    <div class="fish">
+        <img src="{{ url_for('static', filename='fish.jpg') }}" width="50" height="50" alt="fish">
+        
     </div>
 
     <p>current wind speed: {{speed}} mph</p>
