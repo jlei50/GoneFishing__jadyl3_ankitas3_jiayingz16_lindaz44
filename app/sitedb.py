@@ -105,59 +105,54 @@ def getGameStats(username):
 # def addDay():
 
 # def addMoney
-
-def createLeaderboard():
-    leaderboardTable = sqlite3.connect(USER_FILE)
-    c = leaderboardTable.cursor()
-    command = "CREATE TABLE IF NOT EXISTS leaderboardTable (username TEXT, voyageLengthDays INTEGER)"
-    c.execute(command)
-    leaderboardTable.commit()
-    
-def getVoyageLengthDays(username):
-    days = sqlite3.connect(USER_FILE)
-    c = days.cursor()
-    c.execute("SELECT day FROM gameSaves WHERE username=?", (username,))
-    day = c.fetchone()
-    return day[0]
-    
-def getFinalVoyageLengthDays(username):
-    days = sqlite3.connect(USER_FILE)
-    c = days.cursor()
-    #if progress from userTable == 100, return command, if not, return -1 --> in add voyagfe legnth, if voyage length -1, do not add
-    command = "SELECT day FROM userTable"
-    c.execute(command)
-    return c.fetchall()
-    if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
-        c.execute("SELECT day FROM gameSaves WHERE username=?", (username,))
-        return c.fetchall()
-
-def getProgress(username):
-    gameSaves = sqlite3.connect(USER_FILE)
-    c = gameSaves.cursor()
-    if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
-        c.execute("SELECT * FROM gameSaves WHERE username=?", (username))
-        userProgress = c.fetchone()[3]
-        return userProgress
-
-def addVoyageLength(username, voyageLengthDays):
-    leaderboardTable = sqlite3.connect(USER_FILE)
-    c = leaderboardTable.cursor()
-    if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
-        command = "INSERT INTO leaderboardTable (username, voyageLengthDays) VALUES (?, ?)"
-        c.execute(command)
-        leaderboardTable.commit()
-    return "game stats added"
-
-def voyageFinished(username):
-    return (getProgress(username) == 100)
-
-def finalVoyageLength(usrename):
-    if voyageFinished():
-        return getVoyageLengthDays(username)
-
-
-
-
+# 
+# def createLeaderboard():
+#     leaderboardTable = sqlite3.connect(USER_FILE)
+#     c = leaderboardTable.cursor()
+#     command = "CREATE TABLE IF NOT EXISTS leaderboardTable (username TEXT, voyageLengthDays INTEGER)"
+#     c.execute(command)
+#     leaderboardTable.commit()
+#     
+# def getVoyageLengthDays(username):
+#     days = sqlite3.connect(USER_FILE)
+#     c = days.cursor()
+#     c.execute("SELECT day FROM gameSaves WHERE username=?", (username,))
+#     day = c.fetchone()
+#     return day[0]
+# 
+# def getProgress(username):
+#     gameSaves = sqlite3.connect(USER_FILE)
+#     c = gameSaves.cursor()
+#     if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
+#         c.execute("SELECT * FROM gameSaves WHERE username=?", (username))
+#         userProgress = c.fetchone()[3]
+#         return userProgress
+# 
+# def addVoyageLength(username, voyageLengthDays):
+#     leaderboardTable = sqlite3.connect(USER_FILE)
+#     c = leaderboardTable.cursor()
+#     if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
+#         c.execute("INSERT INTO leaderboardTable (username, voyageLengthDays) VALUES (?, ?)", (username, voyageLengthDays))
+#         leaderboardTable.commit()
+#     return 
+# 
+# def updateVoyageLength(username, day):
+#     leaderboardTable = sqlite3.connect(USER_FILE)
+#     c = leaderboardTable.cursor()
+#     if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
+#         c.execute("UPDATE leaderboardTable set voyageLengthDays=?, WHERE username=?", (day+getVoyageLengthDays(username), username))
+#         leaderboardTable.commit()
+#     
+# def voyageFinished(username):
+#     return (getProgress(username) == 100)
+# 
+# def finalVoyageLength(usrename):
+#     if voyageFinished():
+#         return getVoyageLengthDays(username)
+# 
+# 
+# 
+# 
 
 #     TESTING
 #     print("hi")
