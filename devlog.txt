@@ -117,3 +117,7 @@ lindaZ -- 01-13-25 14:25
 - added get and update functions to sitedb.py
 - food and crew will now deplete over time
 - added death and win screen
+
+michelleZ -- 01-13-25 16:00
+- edited game html
+- linked game html with db to display fish & crew mood

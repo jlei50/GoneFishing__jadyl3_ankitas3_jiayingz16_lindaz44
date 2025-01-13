@@ -132,7 +132,6 @@ def game():
     
     courses = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW","SES", "SSE", "ESE", "ENE", "EEN"]
     session['course'] = courses[random.randint(0,20)]
-
     details = getGameStats(username)
     num_day = getVoyageLengthDays(username)
     return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], progress=round((details[4]/30), 2))

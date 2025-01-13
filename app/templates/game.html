@@ -43,6 +43,7 @@
         }
 
         .fish {
+<<<<<<< HEAD
           display: inline-flex;
           position: absolute;
           mix-blend-mode: multiply;
@@ -67,6 +68,48 @@
             top:10%;
             left:2%;
             font-weight: bold;
+            font-size: 18px;
+        }
+
+        .crewMood {
+            position: absolute;
+            mix-blend-mode: multiply;
+            top: 13%;
+            right:2%;
+        }
+
+        .money {
+            position: absolute;
+            mix-blend-mode: multiply;
+            opacity: 1;
+            top: 18%;
+            right:2%;
+        }
+
+        #fish {
+            position: absolute;
+            top: 10.5%;
+            right: 5%;
+            font-weight: bold;
+            color: black;
+            font-size: 18px;
+        }
+
+        #crewMood {
+            position: absolute;
+            top: 14%;
+            right: 5%;
+            font-weight: bold;
+            color: black;
+            font-size: 18px;
+        }
+
+        #money {
+            position: absolute;
+            top: 19%;
+            right: 5%;
+            font-weight: bold;
+            color: black;
             font-size: 18px;
         }
 
@@ -112,6 +155,20 @@
         <p>{{num_fish}}</p>
         <img src="{{ url_for('static', filename='fish.jpg') }}" width="50" height="25">
 
+    <div id="crewMood">
+        <p>{{ crewMood }}</p>
+    </div>
+
+    <div class="crewMood">
+        <img src="{{ url_for('static', filename='smile.webp') }}" width="50" height="50">
+    </div>
+
+    <div id="money">
+        <p>{{ money }}</p>
+    </div>
+
+    <div class="money">
+        <img src="{{ url_for('static', filename='money.jpg') }}" width="50" height="50">
     </div>
 
     <div class="crew">
