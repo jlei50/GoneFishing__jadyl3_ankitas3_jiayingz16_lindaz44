@@ -97,3 +97,7 @@ jadyL -- 01-12-25 22:43
 ankitaS -- 01-12-25 22:43
 - added keys summary 
 - fixed file structure
+
+jadyL -- 01-13-25 10:41
+- change login html and register html
+- fix login redirects
