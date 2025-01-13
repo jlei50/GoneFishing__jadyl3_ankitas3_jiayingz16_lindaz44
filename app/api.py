@@ -5,7 +5,6 @@
 
 import urllib.request
 import json
-import requests
 
 from sitedb import *
 
