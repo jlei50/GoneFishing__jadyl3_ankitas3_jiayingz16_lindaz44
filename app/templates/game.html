@@ -39,7 +39,7 @@
         .fish {
             position: absolute;
             mix-blend-mode: multiply;
-            top:10%;
+            top:9%;
             right:2%;
         }
 
@@ -48,6 +48,31 @@
             top:10%;
             left:2%;
             font-weight: bold;
+            font-size: 18px;
+        }
+
+        .crewMood {
+            position: absolute;
+            mix-blend-mode: multiply;
+            top: 13%;
+            right:2%;
+        }
+
+        #fish {
+            position: absolute;
+            top: 10%;
+            right: 5%;
+            font-weight: bold;
+            color: black;
+            font-size: 18px;
+        }
+
+        #crewMood {
+            position: absolute;
+            top: 13%;
+            right: 5%;
+            font-weight: bold;
+            color: black;
             font-size: 18px;
         }
 
@@ -89,10 +114,20 @@
         <img src="{{ url_for('static', filename='placeholder.png') }}">
     </div>
 
-    <div class="fish">
-        <p>{{num_fish}}</p>
-        <img src="{{ url_for('static', filename='fish.jpg') }}" width="50" height="50">
+    <div id="fish">
+        <p>{{fish}}</p>
+    </div>
 
+    <div class="fish">
+        <img src="{{ url_for('static', filename='fish.jpg') }}" width="50" height="50">
+    </div>
+
+    <div id="crewMood">
+        <p>{{ crewMood }}</p>
+    </div>
+
+    <div class="crewMood">
+        <img src="{{ url_for('static', filename='smile.webp') }}" width="50" height="50">
     </div>
 
     <p>current wind speed: {{speed}} mph</p>

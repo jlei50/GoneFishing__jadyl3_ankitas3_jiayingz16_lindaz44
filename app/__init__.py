@@ -96,12 +96,12 @@ def game():
     if not stats: # check if initial stats exist
         createGameSavesTable()
         day = 1
-        food = 10
+        fish = 10
         money = 100
         progress = 0
         crewMood = 'Calm'
-        addGameStats(username, day, food, money, progress, crewMood)
-        saveGame(username, day, food, money, progress, crewMood)  
+        addGameStats(username, day, fish, money, progress, crewMood)
+        saveGame(username, day, fish, money, progress, crewMood)  
     else:
         saveGame(username, stats[1], stats[2], stats[3], stats[4], stats[5])
     
@@ -119,8 +119,12 @@ def game():
         print(session['wind_speed'])
         print(session['wind_dir'])
 
-    num_day = getVoyageLengthDays(username);
-    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day)
+    day = stats[1]
+    fish = stats[2]
+    money = stats[3]
+    progress = stats[4]
+    crewMood = stats[5]
+    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=day, fish=fish, crewMood=crewMood)
 
 @app.route("/new_day")
 def newDay():
