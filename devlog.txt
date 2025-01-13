@@ -64,4 +64,5 @@ michelleZ -- 01-12-25 21:00
 - edited html
 - fixed api errors
 - added fish & day features to game
+- linked game html with db to display day
 
