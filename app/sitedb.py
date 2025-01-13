@@ -67,7 +67,7 @@ def deleteUsers():
 def createGameSavesTable():
     gameSaves = sqlite3.connect(USER_FILE)
     c = gameSaves.cursor()
-    command = "CREATE TABLE IF NOT EXISTS gameSaves (username TEXT, day INT, food TEXT, money INT, progress INT, crewMood TEXT)"
+    command = "CREATE TABLE IF NOT EXISTS gameSaves (username TEXT, day INT, food INT, money INT, progress INT, crewMood TEXT)"
     c.execute(command)
     gameSaves.commit()
 
@@ -105,6 +105,14 @@ def getGameStats(username):
 # def addDay():
 
 # def addMoney
+
+def createLeaderboard():
+    leaderboardTable = sqlite3.connect(USER_FILE)
+    c = leaderboardTable.cursor()
+    command = "CREATE TABLE IF NOT EXISTS leaderboardTable (username TEXT, voyageLengthDays INTEGER)"
+    c.execute(command)
+    leaderboardTable.commit()
+    
 def getVoyageLengthDays(username):
     days = sqlite3.connect(USER_FILE)
     c = days.cursor()
@@ -131,12 +139,14 @@ def getProgress(username):
         userProgress = c.fetchone()[3]
         return userProgress
 
-def addVoyageLength():
+def addVoyageLength(username, voyageLengthDays):
     leaderboardTable = sqlite3.connect(USER_FILE)
     c = leaderboardTable.cursor()
-    command = "INSERT INTO leaderboardTable (username, voyageLengthDays) VALUES (?, ?)"
-    c.execute(command)
-    return
+    if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
+        command = "INSERT INTO leaderboardTable (username, voyageLengthDays) VALUES (?, ?)"
+        c.execute(command)
+        leaderboardTable.commit()
+    return "game stats added"
 
 def voyageFinished(username):
     return (getProgress(username) == 100)
@@ -145,18 +155,12 @@ def finalVoyageLength(usrename):
     if voyageFinished():
         return getVoyageLengthDays(username)
 
-def createLeaderboard():
-    leaderboardTable = sqlite3.connect(USER_FILE)
-    c = leaderboardTable.cursor()
-    command = "CREATE TABLE IF NOT EXISTS leaderboardTable (username TEXT, voyageLengthDays INTEGER)"
-    c.execute(command)
-    leaderboardTable.commit()
-    
+
 
 
 
 #     TESTING
-#  print("hi")
+#     print("hi")
 #     createUsers()
 #     createGameSavesTable()
 #     addUser("j", "j")
