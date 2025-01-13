@@ -83,6 +83,10 @@ def register():
 def home():
     return render_template("home.html")
 
+@app.route("/leaderboard")
+def home():
+    return render_template("leaderboard.html")
+
 @app.route("/game")
 def game():
     username = session.get('username')
