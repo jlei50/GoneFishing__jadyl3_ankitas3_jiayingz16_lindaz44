@@ -6,7 +6,7 @@
 
 #### Ankita Saha - FEF & Database
 
-#### Michelle Zhu - FEF & API
+#### Michelle Zhu - FEF & Javascript
 
 #### Linda Zheng - FEF & API
 
