@@ -75,3 +75,8 @@ lindaZ --01-12-25 05:00
 - cleaned up flow btw home.html and game.html
 - background image for game scrolls now through animation
 - added wind speed and direction to session as variables
+
+jadyL -- 01-12-25 10:09
+- change game bg to vh and vw
+- stylize home page
+- add logo.png
