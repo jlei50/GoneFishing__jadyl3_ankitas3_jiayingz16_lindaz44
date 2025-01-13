@@ -96,21 +96,21 @@ def returnSaveGamesTable():
     return c.fetchall()
 
 def getGameStats(username):
-    gameSaves = sqlite3.connect(USER_FILE)
-    c = gameSaves.cursor()
-    if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
-        c.execute("SELECT * FROM gameSaves WHERE username=?", (username))
-        userGameData = c.fetchone()
-        return list(userGameData)
-#]def addDay():
+    db = sqlite3.connect(USER_FILE)
+    c = db.cursor()
+    # check if username exists in gameSaves
+    c.execute("SELECT * FROM gameSaves WHERE username=?", (username))
+    userGameData = c.fetchone()
+    return list(userGameData) if userGameData else None
+# def addDay():
 
 # def addMoney
 def getVoyageLengthDays(username):
     days = sqlite3.connect(USER_FILE)
     c = days.cursor()
-    command = "SELECT day FROM userTable"
-    c.execute(command)
-    return c.fetchall()
+    c.execute("SELECT day FROM gameSaves WHERE username=?", (username,))
+    day = c.fetchone()
+    return day[0]
     
 def getFinalVoyageLengthDays(username):
     days = sqlite3.connect(USER_FILE)

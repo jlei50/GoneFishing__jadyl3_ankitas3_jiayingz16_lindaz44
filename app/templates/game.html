@@ -48,6 +48,7 @@
             top:10%;
             left:2%;
             font-weight: bold;
+            font-size: 18px;
         }
 
     </style>
@@ -81,15 +82,15 @@
     </div>
 
     <div class="day">
-        <p>Day 1</p>
+        <p>Day{{day}}</p>
     </div>
 
     <div class="boat">
-        <img src="{{ url_for('static', filename='placeholder.png') }}" alt="background">
+        <img src="{{ url_for('static', filename='placeholder.png') }}">
     </div>
 
     <div class="fish">
-        <img src="{{ url_for('static', filename='fish.jpg') }}" width="50" height="50" alt="fish">
+        <img src="{{ url_for('static', filename='fish.jpg') }}" width="50" height="50">
         
     </div>
 
