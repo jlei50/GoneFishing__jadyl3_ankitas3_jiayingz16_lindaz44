@@ -67,7 +67,7 @@ def deleteUsers():
 def createGameSavesTable():
     gameSaves = sqlite3.connect(USER_FILE)
     c = gameSaves.cursor()
-    command = "CREATE TABLE IF NOT EXISTS gameSaves (username TEXT, day INT, food TEXT, money INT, progress INT, crewMood TEXT)"
+    command = "CREATE TABLE IF NOT EXISTS gameSaves (username TEXT, day INT, food INT, money INT, progress INT, crewMood TEXT)"
     c.execute(command)
     gameSaves.commit()
 

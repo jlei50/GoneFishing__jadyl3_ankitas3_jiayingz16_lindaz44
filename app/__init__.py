@@ -98,12 +98,12 @@ def game():
     createGameSavesTable()
 
     stats = getGameStats(username)
-    print(f"Game stats for {username}: {stats}")
+    #print(stats)
 
     if not stats: # check if initial stats exist
-        addGameStats(username, 2, 'food', 1, 1, 'crewMood')
+        addGameStats(username, 2, 2, 1, 1, 'crewMood')
 
-    saveGame(username, 2, 'food', 1, 1, 'crewMood')
+    saveGame(username, 2, 2, 1, 1, 'crewMood')
 
     #stop from randomizing wind and speed after each refresh
     if 'wind_speed' not in session or 'wind_dir' not in session:
