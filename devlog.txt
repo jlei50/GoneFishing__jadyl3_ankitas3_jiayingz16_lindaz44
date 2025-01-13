@@ -60,6 +60,15 @@ michelleZ -- 01-11-25 17:45
 - created game buttons
 - styled game page
 
+ankitaS -- 01-11-2025 2:00
+- tested db functions for game save
+- fixed formatting
+
+ankitaS -- 01-11-2025 7:00
+- debugged functions for game save and pushed correct functions
+- finalized gamesav, addgamestats, getgamestats
+- added return all game stats table
+
 lindaZ --01-12-25 05:00
 - fixed issues with css and bootstrap
 - buttons functioning
