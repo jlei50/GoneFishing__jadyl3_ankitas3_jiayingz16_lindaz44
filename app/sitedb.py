@@ -99,7 +99,7 @@ def getGameStats(username):
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
     # check if username exists in gameSaves
-    c.execute("SELECT * FROM gameSaves WHERE username=?", (username))
+    c.execute("SELECT * FROM gameSaves WHERE username=?", (username,))
     userGameData = c.fetchone()
     return list(userGameData) if userGameData else None
 # def addDay():
