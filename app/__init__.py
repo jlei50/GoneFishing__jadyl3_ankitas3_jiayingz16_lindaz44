@@ -89,7 +89,7 @@ def home():
     return render_template("home.html")
 
 @app.route("/leaderboard")
-def home():
+def leaderboard():
     return render_template("leaderboard.html")
 
 @app.route("/game")
