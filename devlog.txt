@@ -124,4 +124,5 @@ lindaZ -- 01-13-25 14:25
 
 michelleZ -- 01-13-25 16:00
 - edited game html
-- linked game html with db to display fish & crew mood
+- linked game html with db to display fish & crew mood & money
+- debugged functions in __init__.py
