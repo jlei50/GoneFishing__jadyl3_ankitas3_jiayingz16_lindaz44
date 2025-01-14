@@ -8,6 +8,26 @@ import json
 
 from sitedb import *
 
+print("hi")
+createUsers()
+createGameSavesTable()
+createLeaderboard()
+addUser("j", "j")
+p = returnEntireUsersTable()[0][0]
+print("username:" + p)
+addGameStats(p, 0, 3, 4, 8, "hf")
+saveGame(p, 9,3,0,0,"ftg")
+#updateVoyageLength(p, 4)
+#updateVoyageLength(p, 6)
+updateDay(p)
+updateDay(p)
+updateDay(p)
+print("voyage days:" + str(getVoyageLengthDays(p)))
+print("updated voyage:" + str(getVoyageLengthDays(p)))
+print(getGameStats(p))
+print(returnSaveGamesTable())
+
+
 # ======================================== #
 
 # weather API documentation (no API keys required):
@@ -32,6 +52,7 @@ def getForecast(latitude, longitude):
     saveGame(p, 9,3,0,0,"ftg")
     #updateVoyageLength(p, 4)
     #updateVoyageLength(p, 6)
+    updateDay(p)
     print("voyage days:" + str(getVoyageLengthDays(p)))
     print("updated voyage:" + str(getVoyageLengthDays(p)))
     print(getGameStats(p))
