@@ -119,7 +119,7 @@
         <p>Day {{day}}</p>
     </div>
 
-    <div class="boat">
+    <div class="boat" id="boat">
         <img src="{{ url_for('static', filename='placeholder.png') }}">
     </div>
 
@@ -151,10 +151,26 @@
       <p>course: {{course}} / current wind direction: {{direction}} mph</p>
       <p>miles traveled: {{miles}} / progress: {{progress}}%</p>
     </div>
-    
 
     <a href="/new_day" class="btn btn-primary m-3">Next Day</a>
     <p>Notes: course is the direction you want to head in. keep in mind the wind direction relative to your course</p>
+
+    <script>
+      const boat = document.getElementById('boat');
+      let position = 10; // initial position (in %)
+      let direction = 1; // 1 for moving up, -1 for moving down
+
+      function animateBoat() {
+          position += direction * 0.1; // adjust speed by changing 0.5 per frame
+          if (position >= 12 || position <= 8) { // set limits for motion
+              direction *= -1; // reverse direction
+          }
+          boat.style.top = position + '%'; // update boat position
+          requestAnimationFrame(animateBoat); // continue the animation
+      }
+
+      animateBoat();
+  </script>
   </body>
 
 </html>

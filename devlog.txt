@@ -134,3 +134,8 @@ michelleZ -- 01-14-25 10:30
 
 jadyL -- 01-14-25 11:01
 - build builder for save htmls to be used in modal
+
+michelleZ -- 01-14-25 17:30
+- fixed game html issues
+- added javascript for boat movement
+- 
