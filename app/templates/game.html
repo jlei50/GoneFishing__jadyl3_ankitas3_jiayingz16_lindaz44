@@ -148,6 +148,14 @@
     <div class="boat">
         <img src="{{ url_for('static', filename='placeholder.png') }}">
     </div>
+    <script type="text/javascript">
+      var change = document.getElementByClass('boat').style.left = '0';
+      
+      while(change < 200)
+      {
+      change++;
+      }
+    </script>
 
     <div class="fish">
         <p>{{ num_fish }}</p>
