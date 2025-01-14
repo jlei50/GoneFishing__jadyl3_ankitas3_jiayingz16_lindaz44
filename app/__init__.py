@@ -38,6 +38,9 @@ def login():
     if 'username' in session:
         return redirect("/home")
 
+    print(returnEntireUsersTable())
+    print("test")
+
     if request.method =="POST":
         username = request.form.get("username")
         password = request.form.get("password")
@@ -48,14 +51,14 @@ def login():
 
         if checkPass(username, password):# if password is correct, given user exists
             session["username"] = username# adds user to session
-            return redirect("/game")
+            return redirect("/home")
 
         else:# if password isnt correct
             flash("Invalid username/password", "error")
             return redirect("/login")
 
     return render_template("login.html")# if GET request, just renders login page
-
+    
 
 @app.route("/register", methods=["GET", "POST"])# will code registering and logging forms later
 def register():
@@ -81,29 +84,26 @@ def home():
     return render_template("home.html")
 
 @app.route("/leaderboard")
-def leaderboard():
+def home():
     return render_template("leaderboard.html")
 
 @app.route("/game")
 def game():
     username = session.get('username')
-
+    
     if not username:
         print("Error: Username not found in session.")
         return redirect('/login')
-
-    stats = getGameStats(username)
-    if not stats: # check if initial stats exist
-        createGameSavesTable()
-        day = 1
-        food = 10
-        money = 100
-        progress = 0
-        crewMood = 'Calm'
-        addGameStats(username, day, food, money, progress, crewMood)
-        saveGame(username, day, food, money, progress, crewMood)
     
-    saveGame(username, day, food, money, getProgress(username), crewMood)
+    createGameSavesTable()
+    
+    stats = getGameStats(username)
+    print(f"Game stats for {username}: {stats}")
+    
+    if not stats: # check if initial stats exist
+        addGameStats(username, 2, 'food', 1, 1, 'crewMood')
+    
+    saveGame(username, 2, 'food', 1, 1, 'crewMood')
     
     #stop from randomizing wind and speed after each refresh
     if 'wind_speed' not in session or 'wind_dir' not in session:
@@ -118,9 +118,9 @@ def game():
     else:
         print(session['wind_speed'])
         print(session['wind_dir'])
-
-    num_day = getVoyageLengthDays(username);
-    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day)
+        
+    day = getVoyageLengthDays(username);
+    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=day)
 
 @app.route("/new_day")
 def newDay():
