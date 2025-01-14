@@ -38,9 +38,6 @@ def login():
     if 'username' in session:
         return redirect("/home")
 
-    print(returnEntireUsersTable())
-    print("test")
-
     if request.method =="POST":
         username = request.form.get("username")
         password = request.form.get("password")
@@ -51,14 +48,14 @@ def login():
 
         if checkPass(username, password):# if password is correct, given user exists
             session["username"] = username# adds user to session
-            return redirect("/home")
+            return redirect("/game")
 
         else:# if password isnt correct
             flash("Invalid username/password", "error")
             return redirect("/login")
 
     return render_template("login.html")# if GET request, just renders login page
-    
+
 
 @app.route("/register", methods=["GET", "POST"])# will code registering and logging forms later
 def register():
@@ -95,20 +92,10 @@ def leaderboard():
 @app.route("/game")
 def game():
     username = session.get('username')
-    
+
     if not username:
         print("Error: Username not found in session.")
         return redirect('/login')
-    
-    createGameSavesTable()
-    
-    stats = getGameStats(username)
-    print(f"Game stats for {username}: {stats}")
-    
-    if not stats: # check if initial stats exist
-        addGameStats(username, 2, 'food', 1, 1, 'crewMood')
-    
-    saveGame(username, 2, 'food', 1, 1, 'crewMood')
 
     stats = getGameStats(username)
     if not stats: # check if initial stats exist
@@ -142,15 +129,12 @@ def game():
     else:
         print(session['wind_speed'])
         print(session['wind_dir'])
-        
-    day = getVoyageLengthDays(username);
-    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=day)
     
     courses = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW","SES", "SSE", "ESE", "ENE", "EEN"]
     session['course'] = courses[random.randint(0,20)]
     details = getGameStats(username)
     num_day = getVoyageLengthDays(username)
-    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], progress=round((details[4]/30), 2))
+    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], progress=round((details[4]/20), 2))
 
 @app.route("/sailChoice")
 def sailChoice():
@@ -176,7 +160,7 @@ def newDay():
         updateCrew(random.randint(0,3), session['username'])
     if(getCrew(session['username'])<=0):
         return render_template("end.html")
-    if((getProgress(session['username'])/30)>=100):
+    if((getProgress(session['username'])/20)>=100):
         return render_template("win.html")
     beegFile = api.getWind()
     data = (beegFile['data'])
