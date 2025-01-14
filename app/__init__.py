@@ -83,7 +83,8 @@ def logout():
 
 @app.route("/home")
 def home():
-    return render_template("home.html")
+
+    return render_template("home.html", saves = "")
 
 @app.route("/leaderboard")
 def leaderboard():
@@ -106,10 +107,10 @@ def game():
         progress = 0
         crewMood = 'Calm'
         addGameStats(username, day, food, crew, progress, crewMood)
-        saveGame(username, day, food, crew, progress, crewMood)  
+        saveGame(username, day, food, crew, progress, crewMood)
     else: #references stats var otherwise
         saveGame(username, stats[1], stats[2], stats[3], stats[4], stats[5])
-    
+
     #stop from randomizing wind and speed after each refresh
     if 'wind_speed' not in session or 'wind_dir' not in session:
         beegFile = api.getWind()
@@ -129,7 +130,7 @@ def game():
     else:
         print(session['wind_speed'])
         print(session['wind_dir'])
-    
+
     courses = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW","SES", "SSE", "ESE", "ENE", "EEN"]
     session['course'] = courses[random.randint(0,20)]
     details = getGameStats(username)
@@ -184,3 +185,41 @@ def map():
 if __name__ == "__main__":
     app.debug = True
     app.run()
+
+
+# html builders
+# def returnSaveHtml(saves):
+#     '''
+#     <div class="card">
+#       <div class="card-header">
+#         Game Save [TODO num]
+#       </div>
+#       <div class="card-body row">
+#         <div class="col-10">
+#             <h6 class="card-text fs-6">Day: []</h6>
+#             <h6 class="card-text fs-6">Progress: []</h6>
+#         </div>
+#         <div class="col d-flex flex-row-reverse">
+#             <a href="#" class="btn btn-primary d-flex align-items-center">Load</a>
+#         </div>
+#       </div>
+#     </div>
+#     '''
+#     output = ""
+#     for save in saves:
+#         output += f'''
+#             <div class="card">
+#               <div class="card-header">
+#                 Game Save {TODO}
+#               </div>
+#               <div class="card-body row">
+#                 <div class="col-10">
+#                     <h6 class="card-text fs-6">Day: {save[TODO]}</h6>
+#                     <h6 class="card-text fs-6">Progress:{save[TODO]}</h6>
+#                 </div>
+#                 <div class="col d-flex flex-row-reverse">
+#                     <a href="#" class="btn btn-primary d-flex align-items-center">Load</a>
+#                 </div>
+#               </div>
+#             </div>
+#         '''
