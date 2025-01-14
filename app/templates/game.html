@@ -54,8 +54,8 @@
           display: flex;
           position: absolute;
           mix-blend-mode: multiply;
-          top:15%;
-          right:2.5%;
+          top: 19%;
+          right: 2.5%;
         }
 
         .crew p{
@@ -77,13 +77,6 @@
             right:2%;
         }
 
-        .money {
-            position: absolute;
-            mix-blend-mode: multiply;
-            top: 18%;
-            right:2%;
-        }
-
         .fish p {
             position: absolute;
             top: 10.5%;
@@ -96,15 +89,6 @@
         .crewMood p{
             position: absolute;
             top: 14%;
-            right: 5%;
-            font-weight: bold;
-            color: black;
-            font-size: 18px;
-        }
-
-        .money p{
-            position: absolute;
-            top: 20%;
             right: 5%;
             font-weight: bold;
             color: black;
@@ -149,7 +133,7 @@
         <img src="{{ url_for('static', filename='placeholder.png') }}">
     </div>
     <script type="text/javascript">
-      var change = document.getElementByClass('boat').style.left = '0';
+      var change = document.getElementByClass('boat').style.left = '20';
       
       while(change < 200)
       {
@@ -165,11 +149,6 @@
     <div class="crewMood">
       <p>{{ crewMood }}</p>
       <img src="{{ url_for('static', filename='smile.webp') }}" width="50" height="50">
-    </div>
-
-    <div class="money">
-      <p>{{ money }}</p>
-      <img src="{{ url_for('static', filename='money.jpg') }}" width="50" height="50">
     </div>
 
     <div class="crew">
