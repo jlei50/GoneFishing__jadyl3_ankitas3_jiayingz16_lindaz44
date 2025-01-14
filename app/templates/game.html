@@ -161,7 +161,7 @@
       let direction = 1; // 1 for moving up, -1 for moving down
 
       function animateBoat() {
-          position += direction * 0.1; // adjust speed by changing 0.5 per frame
+          position += direction * 0.05; // adjust speed by changing 0.5 per frame
           if (position >= 12 || position <= 8) { // set limits for motion
               direction *= -1; // reverse direction
           }

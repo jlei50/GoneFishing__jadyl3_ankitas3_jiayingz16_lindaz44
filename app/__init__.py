@@ -134,7 +134,8 @@ def game():
     session['course'] = courses[random.randint(0,20)]
     details = getGameStats(username)
     num_day = getVoyageLengthDays(username)
-    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], progress=round((details[4]/30), 2))
+    
+    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], progress=round((details[4]/30), 2), crewMood=details[5])
 
 @app.route("/sailChoice")
 def sailChoice():
@@ -148,6 +149,26 @@ def sailChoice():
 
     progress = float(session.get('wind_speed'))*15*wind
     updateProgress(session.get('username'), progress)
+    return redirect("/new_day")
+
+@app.route("/fishChoice")
+def fishChoice():
+    username = session.get('username')
+    stats = getGameStats(username)
+    wind = session.get('wind_speed')
+    fish = stats[2]
+    crew = stats[3]
+    
+    if(crew >= 10 and wind==1):
+        fish += 5
+    if(crew >=10 and wind==0.5):
+        fish += 2
+    else:
+        fish += 1
+        
+    progress = float(fish)
+    saveGame(username, stats[1], fish, stats[3], stats[4], stats[5])
+    updateProgress(username, progress)
     return redirect("/new_day")
 
 @app.route("/new_day")
