@@ -38,9 +38,6 @@ def login():
     if 'username' in session:
         return redirect("/home")
 
-    print(returnEntireUsersTable())
-    print("test")
-
     if request.method =="POST":
         username = request.form.get("username")
         password = request.form.get("password")
@@ -51,14 +48,14 @@ def login():
 
         if checkPass(username, password):# if password is correct, given user exists
             session["username"] = username# adds user to session
-            return redirect("/home")
+            return redirect("/game")
 
         else:# if password isnt correct
             flash("Invalid username/password", "error")
             return redirect("/login")
 
     return render_template("login.html")# if GET request, just renders login page
-    
+
 
 @app.route("/register", methods=["GET", "POST"])# will code registering and logging forms later
 def register():
@@ -95,20 +92,10 @@ def leaderboard():
 @app.route("/game")
 def game():
     username = session.get('username')
-    
+
     if not username:
         print("Error: Username not found in session.")
         return redirect('/login')
-    
-    createGameSavesTable()
-    
-    stats = getGameStats(username)
-    print(f"Game stats for {username}: {stats}")
-    
-    if not stats: # check if initial stats exist
-        addGameStats(username, 2, 'food', 1, 1, 'crewMood')
-    
-    saveGame(username, 2, 'food', 1, 1, 'crewMood')
 
     stats = getGameStats(username)
     if not stats: # check if initial stats exist
@@ -142,9 +129,6 @@ def game():
     else:
         print(session['wind_speed'])
         print(session['wind_dir'])
-        
-    day = getVoyageLengthDays(username);
-    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=day)
     
     courses = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW","SES", "SSE", "ESE", "ENE", "EEN"]
     session['course'] = courses[random.randint(0,20)]
