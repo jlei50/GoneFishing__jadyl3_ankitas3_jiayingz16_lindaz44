@@ -134,7 +134,7 @@ def game():
     session['course'] = courses[random.randint(0,20)]
     details = getGameStats(username)
     num_day = getVoyageLengthDays(username)
-    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], progress=round((details[4]/20), 2))
+    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], progress=round((details[4]/30), 2))
 
 @app.route("/sailChoice")
 def sailChoice():
@@ -160,7 +160,7 @@ def newDay():
         updateCrew(random.randint(0,3), session['username'])
     if(getCrew(session['username'])<=0):
         return render_template("end.html")
-    if((getProgress(session['username'])/20)>=100):
+    if((getProgress(session['username'])/30)>=100):
         return render_template("win.html")
     beegFile = api.getWind()
     data = (beegFile['data'])
