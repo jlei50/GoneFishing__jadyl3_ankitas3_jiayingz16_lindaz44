@@ -54,7 +54,7 @@
           display: inline-flex;
           position: absolute;
           mix-blend-mode: multiply;
-          top:15%;
+          top:19%;
           right:2.5%;
         }
 
@@ -73,43 +73,16 @@
         .crewMood {
             position: absolute;
             mix-blend-mode: multiply;
-            top: 13%;
+            top: 11%;
             right:2%;
         }
 
-        .money {
-            position: absolute;
-            mix-blend-mode: multiply;
-            opacity: 1;
-            top: 18%;
-            right:2%;
+        .fish p {
+            right: 4%;
         }
 
-        .fish p{
-            position: absolute;
-            top: 10.5%;
-            right: 5%;
-            font-weight: bold;
-            color: black;
-            font-size: 18px;
-        }
-
-        .crewMood p{
-            position: absolute;
-            top: 14%;
-            right: 5%;
-            font-weight: bold;
-            color: black;
-            font-size: 18px;
-        }
-
-        .money p{
-            position: absolute;
-            top: 19%;
-            right: 5%;
-            font-weight: bold;
-            color: black;
-            font-size: 18px;
+        .crewMood p {
+            right: 4%;
         }
 
     </style>
@@ -151,7 +124,7 @@
     </div>
 
     <div class="fish">
-        <p>{{num_fish}}</p>
+        <p>{{ num_fish }}</p>
         <img src="{{ url_for('static', filename='fish.jpg') }}" width="50" height="25">
     </div>
 
@@ -160,13 +133,8 @@
       <img src="{{ url_for('static', filename='smile.webp') }}" width="50" height="50">
     </div>
 
-    <div class="money">
-      <p>{{ money }}</p>
-      <img src="{{ url_for('static', filename='money.jpg') }}" width="50" height="50">
-    </div>
-
     <div class="crew">
-      <p class="pe-2">{{crew}}</p>
+      <p>{{ crew }}</p>
       <img src="{{ url_for('static', filename='crew.png') }}" width="35" height="35">
     </div>
 
