@@ -99,7 +99,6 @@ def game():
     if not username:
         print("Error: Username not found in session.")
         return redirect('/login')
-<<<<<<< HEAD
     
     createGameSavesTable()
     
@@ -110,7 +109,6 @@ def game():
         addGameStats(username, 2, 'food', 1, 1, 'crewMood')
     
     saveGame(username, 2, 'food', 1, 1, 'crewMood')
-=======
 
     stats = getGameStats(username)
     if not stats: # check if initial stats exist
@@ -124,7 +122,6 @@ def game():
         saveGame(username, day, food, crew, progress, crewMood)  
     else: #references stats var otherwise
         saveGame(username, stats[1], stats[2], stats[3], stats[4], stats[5])
->>>>>>> 3d26773f5beb8865ff6f9e292417bfe16b2707ea
     
     #stop from randomizing wind and speed after each refresh
     if 'wind_speed' not in session or 'wind_dir' not in session:
@@ -145,11 +142,9 @@ def game():
     else:
         print(session['wind_speed'])
         print(session['wind_dir'])
-<<<<<<< HEAD
         
     day = getVoyageLengthDays(username);
     return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=day)
-=======
     
     courses = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW","SES", "SSE", "ESE", "ENE", "EEN"]
     session['course'] = courses[random.randint(0,20)]
@@ -170,7 +165,6 @@ def sailChoice():
     progress = float(session.get('wind_speed'))*15*wind
     updateProgress(session.get('username'), progress)
     return redirect("/new_day")
->>>>>>> 3d26773f5beb8865ff6f9e292417bfe16b2707ea
 
 @app.route("/new_day")
 def newDay():
