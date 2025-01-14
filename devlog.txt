@@ -128,5 +128,9 @@ michelleZ -- 01-13-25 16:00
 - debugged functions in __init__.py
 - fixed issues with site.db
 
+michelleZ -- 01-14-25 10:30
+- removed money
+- fixed bad gateway issue
+
 jadyL -- 01-14-25 11:01
 - build builder for save htmls to be used in modal
