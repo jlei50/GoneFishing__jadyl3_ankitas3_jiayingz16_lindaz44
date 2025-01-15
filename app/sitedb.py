@@ -206,7 +206,7 @@ def finalVoyageLength(usrename):
     if voyageFinished():
         return getVoyageLengthDays(username)
 
-def newGame(usrename):
+def newGame(username):
     gameSaves = sqlite3.connect(USER_FILE)
     c = gameSaves.cursor()
     if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():

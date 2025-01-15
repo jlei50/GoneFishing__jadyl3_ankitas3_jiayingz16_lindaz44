@@ -30,13 +30,42 @@
       <div class="logo mb-3">
         <img src="{{ url_for('static', filename='logo.png') }}" alt="logo">
       </div>
+      
 
       <a href="/game" class="btn text-info pb-0 px-2"><h2>New Game</h2></a>
 
       <!-- Button trigger modal -->
-      <button type="button" class="btn text-info px-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        <h2>Load Game</h2>
-      </button>
+      <button type="button" class="btn text-info px-2" data-bs-toggle="modal" data-bs-target="#exampleModal"><h2> Save</h2></button>
+      <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+      
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+              <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+      
+        </div>
+      </div>
+      <div>
+          <h3>Last Saved Stats:</h3>
+        <p>- Voyage Length: {{day}} days</p>
+        <p>- Food Left: {{food}}</p>
+        <p>- Crewmates Left: {{crew}}</p>
+        <p>- Progress So Far: {{progress}} miles</p>
+        <p>- Crew Mood: {{crewMood}}</p>
+        <p>- Times : {{numPlayed}}</p>
+      </div>
+      
+      
       <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

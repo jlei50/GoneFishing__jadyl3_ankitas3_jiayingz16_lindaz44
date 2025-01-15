@@ -204,6 +204,18 @@ def newDay():
 def map():
     return render_template("map")
 
+@app.route("/saveExitGame")
+def saveExitGame():
+    username = session.get('username')
+    stats = getGameStats(username)
+    saveGame(username, stats[1], stats[2], stats[3], stats[4], stats[5], stats[6])
+    return render_template("home.html", day = stats[1], food = stats[2], crew = stats[3], progress = stats[4], crewMood = stats[5], numPlayed = stats[6]+1)
+
+# @app.route("/newGame")
+# def resetGame():
+#     username = session.get('username')
+#     newGame(username)
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
