@@ -1,4 +1,5 @@
 import sqlite3
+import random
 
 USER_FILE="sea.db"
 
@@ -135,8 +136,10 @@ def updateFood(username):
     c.execute("SELECT food FROM gameSaves WHERE username = ?", (username,))
     data = c.fetchone()
     food = data[0]
-    if not(data[0]==0):
-        food = data[0]-1
+    if not(data[0]<=0):
+        food = data[0]-random.randint(1,3)
+    else:
+        food = 0
     c.execute("UPDATE gameSaves SET food = ? WHERE username = ?", (food, username))
     db.commit()
 
@@ -202,10 +205,11 @@ def addVoyageLength(username, voyageLengthDays):
     leaderboardTable = sqlite3.connect(USER_FILE)
     c = leaderboardTable.cursor()
     if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
-        command = "INSERT INTO leaderboardTable (username, getVoyageLengthDays(username)) VALUES (?, ?)"
-        c.execute(command)
+        c.execute("INSERT INTO leaderboardTable (username, voyageLengthDays) VALUES (?, ?)", (username,getVoyageLengthDays(username)))
         leaderboardTable.commit()
     return "game stats added"
+
+
 
 def voyageFinished(username):
     return (getProgress(username) == 100)
@@ -213,6 +217,22 @@ def voyageFinished(username):
 def finalVoyageLength(usrename):
     if voyageFinished():
         return getVoyageLengthDays(username)
+    
+def returnLeaderboardStats(username):
+    db = sqlite3.connect(USER_FILE)
+    c = db.cursor()
+    # check if username exists in gameSaves
+    c.execute("SELECT * FROM leaderboardTable WHERE username=?", (username,))
+    leaderboardT = c.fetchone()
+    return list(leaderboardT) if leaderboardT else None
+
+def top10():
+    db = sqlite3.connect(USER_FILE)
+    c = db.cursor()
+    # check if username exists in gameSaves
+    c.execute("SELECT * FROM leaderboardTable")
+    leaderboardT = sorted(c.fetchall()[:10], reverse=True)
+    return leaderboardT
 
 def newGame(username):
     gameSaves = sqlite3.connect(USER_FILE)
@@ -236,4 +256,4 @@ def newGame(username):
 #     saveGame(p, 9,"lllllllllllll",0,0,"ftg")
 #     print(getGameStats(p))
 #     print(returnSaveGamesTable())
-print(getAllGameStats('a'))
+

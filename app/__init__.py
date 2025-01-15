@@ -152,7 +152,7 @@ def sailChoice():
     if any(charA == charB for charA in session['wind_dir'] for charB in session['course']):
         wind=0.5 #wind slightly stopping user
     else:
-        wind=-1 #user goes back bc of pushing winds
+        wind=0.1 #user doesn't move much
 
     progress = float(session.get('wind_speed'))*15*wind
     updateProgress(session.get('username'), progress)
@@ -182,7 +182,7 @@ def fishChoice():
 def newDay():
     session.pop('wind_speed', None)
     session.pop('wind_dir', None)
-    if (random.randint(0,10)<5): #randomly depletes food
+    if (random.randint(0,10)<7): #randomly depletes food
         updateFood(session['username'])
     if(getFood(session['username'])<=0):
         updateCrew(random.randint(0,3), session['username'])
@@ -240,7 +240,7 @@ def returnSavesHtml(saves):
     </div>
     '''
     output = ""
-    if len(saves) >= 1:
+    if saves:
         for save in saves:
             output += f'''
                 <div class="card">

@@ -9,6 +9,19 @@ import json
 from sitedb import *
 
 
+createUsers()
+createGameSavesTable()
+createLeaderboard()
+addUser("j", "j")
+p = returnEntireUsersTable()[0][0]
+print("username:" + p)
+addGameStats(p, 0, "fg", 4, 8, "hf",0)
+saveGame(p, 9,"lllllllllllll",0,0,"ftg",0)
+updateDay(p)
+addVoyageLength(p, getVoyageLengthDays(p))
+#print(returnLeaderboardStats(p))
+print(top10())
+
 # ======================================== #
 
 # weather API documentation (no API keys required):
