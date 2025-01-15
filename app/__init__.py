@@ -113,10 +113,10 @@ def game():
         crewMood = 'Calm'
         ukey = 0
         addGameStats(username, day, food, crew, progress, crewMood, ukey)
-        saveGame(username, day, food, crew, progress, crewMood, ukey)  
+        saveGame(username, day, food, crew, progress, crewMood, ukey)
     else: #references stats var otherwise
         saveGame(username, stats[1], stats[2], stats[3], stats[4], stats[5], stats[6])
-    
+
     #stop from randomizing wind and speed after each refresh
     if 'wind_speed' not in session or 'wind_dir' not in session:
         beegFile = api.getWind()
@@ -136,12 +136,12 @@ def game():
     else:
         print(session['wind_speed'])
         print(session['wind_dir'])
-    
+
     courses = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW","SES", "SSE", "ESE", "ENE", "EEN"]
     session['course'] = courses[random.randint(0,20)]
     details = getGameStats(username)
     num_day = getVoyageLengthDays(username)
-    
+
     return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], progress=round((details[4]/30), 2), crewMood=details[5])
 
 @app.route("/sailChoice")
@@ -165,14 +165,14 @@ def fishChoice():
     wind = session.get('wind_speed')
     fish = stats[2]
     crew = stats[3]
-    
+
     if(crew >= 10 and wind==1):
         fish += 5
     if(crew >=10 and wind==0.5):
         fish += 2
     else:
         fish += 1
-        
+
     progress = float(fish)
     saveGame(username, stats[1], fish, stats[3], stats[4], stats[5], stats[6])
     updateProgress(username, progress)
@@ -205,9 +205,23 @@ def newDay():
     sitedb.updateDay(session['username'])
     return redirect("/game")
 
-@app.route("/map")
-def map():
-    return render_template("map")
+@app.route("/1")
+def fishChoice():
+    username = session.get('username')
+    session["ukey"] = 1
+    return redirect("/game")
+
+@app.route("/2")
+def fishChoice():
+    username = session.get('username')
+    session["ukey"] = 1
+    return redirect("/game")
+
+@app.route("/3")
+def fishChoice():
+    username = session.get('username')
+    session["ukey"] = 1
+    return redirect("/game")
 
 @app.route("/saveExitGame")
 def saveExitGame():
@@ -215,6 +229,12 @@ def saveExitGame():
     stats = getGameStats(username)
     saveGame(username, stats[1], stats[2], stats[3], stats[4], stats[5], stats[6])
     return render_template("home.html", day = stats[1], food = stats[2], crew = stats[3], progress = stats[4], crewMood = stats[5], numPlayed = stats[6]+1)
+
+@app.route("/gameend")
+def fishChoice():
+    username = session.get('username')
+    # if getProgress(username, session["ukey"] == 100): addVoyageLength(username, voyageLengthDays, ukey)
+    return redirect("/game")
 
 # @app.route("/newGame")
 # def resetGame():
