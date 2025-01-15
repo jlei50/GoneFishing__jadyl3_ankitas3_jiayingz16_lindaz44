@@ -92,7 +92,10 @@ def home():
 
 @app.route("/leaderboard")
 def leaderboard():
-    return render_template("leaderboard.html")
+    num = []
+    for i in range(len(top10())):
+        num.append(i)
+    return render_template('leaderboard.html', arr=top10(), num=num)
 
 @app.route("/game")
 def game():
