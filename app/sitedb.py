@@ -130,12 +130,12 @@ def updateProgress(username, miles):
     c.execute("UPDATE gameSaves SET progress = ? WHERE username = ?", (totalMiles, username))
     db.commit()
 
-def updateFood(username, crew):
+def eatFood(username, number):
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
     c.execute("SELECT food FROM gameSaves WHERE username = ?", (username,))
     data = c.fetchone()
-    food = data[0] - crew
+    food = data[0] - number
     c.execute("UPDATE gameSaves SET food = ? WHERE username = ?", (food, username))
     db.commit()
 

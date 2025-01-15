@@ -111,7 +111,7 @@ def game():
         createGameSavesTable()
         day = 1
         food = 20
-        crew = 20
+        crew = 2
         progress = 0
         crewMood = 'Calm'
         ukey = 0
@@ -165,18 +165,45 @@ def sailChoice():
 def fishChoice():
     username = session.get('username')
     stats = getGameStats(username)
-    
-    wind_speed = session.get('wind_speed')
+
+    wind_speed = float(session.get('wind_speed', '0'))
     fish = stats[2]
     crew = stats[3]
+    crewMood = stats[5]
     
-    if crew >= 5:
-        fish += max(10, int(wind_speed * 2))  # Higher fish yield for larger crew
+    if wind_speed >= 20:
+        crewMood = 'Angry'
     else:
-        fish += max(2, int(wind_speed * 1))   # Lower fish yield for smaller crew
+        crewMood = 'Calm'
 
-    saveGame(username, stats[1], fish, crew, stats[4], stats[5], stats[6])
-    updateProgress(username, fish)
+    # Complex fish yield algorithm
+    if crew >= 5:
+        if wind_speed >= 15:
+            fish += crew * 2  # Very high yield for large crew in strong wind
+        elif 5 <= wind_speed < 15:
+            fish += crew * 1  # Moderate yield for large crew in medium wind
+        else:
+            fish += 1  # Low yield for large crew in weak wind
+    else:
+        if wind_speed >= 15:
+            fish += crew  # High yield for small crew in strong wind
+        elif 5 <= wind_speed < 15:
+            fish += crew * 0.5  # Moderate yield for small crew in medium wind
+        else:
+            fish += 0  # Low yield for small crew in weak wind
+
+    # Random bonus based on wind direction
+    if "N" in session.get('wind_dir'):
+        fish += 5  # Extra fish for northern wind
+    elif "S" in session.get('wind_dir'):
+        fish += 3  # Extra fish for southern wind
+
+    # Reduce fish yield if crew mood is poor
+    if stats[5] == 'Angry':
+        fish = max(fish - 10, 0)  # Reduce yield but not below 0
+
+    saveGame(username, stats[1], int(fish), crew, stats[4], stats[5], stats[6])
+    updateProgress(username, int(fish))
     return redirect("/new_day")
 
 @app.route("/new_day")
@@ -189,18 +216,18 @@ def newDay():
     crewMood = stats[5]
     crew = stats[3]
     
-    # update food
+    # food consumption
     if (crewMood == 'Calm'):
-        updateFood(username, crew)
+        eatFood(username, crew) # eat crew # of fish
     else:
-        updateFood(username, crew*1.5)
+        eatFood(username, crew*1.5) # eat 1.5*crew # of fish
     
     if(getCrew(username)<=0):
         session['died'] = True
-        newGame(username, getKey(username) +1)
+        newGame(username, getKey(username)+1)
         return render_template("end.html")
     
-    if((getProgress(username)/30)>=100):
+    if(getProgress(username)>=100):
         return render_template("win.html")
     
     beegFile = api.getWind()
