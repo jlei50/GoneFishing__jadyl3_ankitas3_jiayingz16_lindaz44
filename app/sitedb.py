@@ -103,6 +103,14 @@ def getGameStats(username):
     userGameData = c.fetchone()
     return list(userGameData) if userGameData else None
 
+def getAllGameStats(username):
+    db = sqlite3.connect(USER_FILE)
+    c = db.cursor()
+    # check if username exists in gameSaves
+    c.execute("SELECT * FROM gameSaves WHERE username=?", (username,))
+    userGameData = c.fetchall()
+    return list(userGameData) if userGameData else None
+
 def updateDay(username):
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
@@ -162,7 +170,7 @@ def getCrew(username):
 def getKey(username):
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
-    c.execute("SELECT key FROM gameSaves WHERE username = ?", (username,))
+    c.execute("SELECT ukey FROM gameSaves WHERE username = ?", (username,))
     data = c.fetchone()
     key = data[0]
     return key
@@ -228,3 +236,4 @@ def newGame(username):
 #     saveGame(p, 9,"lllllllllllll",0,0,"ftg")
 #     print(getGameStats(p))
 #     print(returnSaveGamesTable())
+print(getAllGameStats('a'))

@@ -48,7 +48,7 @@ def login():
 
         if checkPass(username, password):# if password is correct, given user exists
             session["username"] = username# adds user to session
-            return redirect("/game")
+            return redirect("/home")
 
         else:# if password isnt correct
             flash("Invalid username/password", "error")
@@ -83,7 +83,12 @@ def logout():
 
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    username = session.get('username')
+    saveHtml = "No account detected."
+    if username:
+        saves = getAllGameStats(username)
+        saveHtml = returnSavesHtml(saves)
+    return render_template("home.html", saves = saveHtml)
 
 @app.route("/leaderboard")
 def leaderboard():
@@ -216,44 +221,47 @@ def saveExitGame():
 #     username = session.get('username')
 #     newGame(username)
 
+# html builders
+def returnSavesHtml(saves):
+    '''
+    <div class="card">
+      <div class="card-header">
+        Game Save [TODO num]
+      </div>
+      <div class="card-body row">
+        <div class="col-10">
+            <h6 class="card-text fs-6">Day: []</h6>
+            <h6 class="card-text fs-6">Progress: []</h6>
+        </div>
+        <div class="col d-flex flex-row-reverse">
+            <a href="#" class="btn btn-primary d-flex align-items-center">Load</a>
+        </div>
+      </div>
+    </div>
+    '''
+    output = ""
+    if len(saves) >= 1:
+        for save in saves:
+            output += f'''
+                <div class="card">
+                <div class="card-header">
+                    Game Save {save[6]}
+                </div>
+                <div class="card-body row">
+                    <div class="col-10">
+                        <h6 class="card-text fs-6">Day: {save[1]}</h6>
+                        <h6 class="card-text fs-6">Progress:{save[4]}</h6>
+                    </div>
+                    <div class="col d-flex flex-row-reverse">
+                        <a href="#" class="btn btn-primary d-flex align-items-center">Load</a>
+                    </div>
+                </div>
+                </div>
+            '''
+        return output
+    else:
+        return "No Saves Created"
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
-
-
-# html builders
-# def returnSaveHtml(saves):
-#     '''
-#     <div class="card">
-#       <div class="card-header">
-#         Game Save [TODO num]
-#       </div>
-#       <div class="card-body row">
-#         <div class="col-10">
-#             <h6 class="card-text fs-6">Day: []</h6>
-#             <h6 class="card-text fs-6">Progress: []</h6>
-#         </div>
-#         <div class="col d-flex flex-row-reverse">
-#             <a href="#" class="btn btn-primary d-flex align-items-center">Load</a>
-#         </div>
-#       </div>
-#     </div>
-#     '''
-#     output = ""
-#     for save in saves:
-#         output += f'''
-#             <div class="card">
-#               <div class="card-header">
-#                 Game Save {TODO}
-#               </div>
-#               <div class="card-body row">
-#                 <div class="col-10">
-#                     <h6 class="card-text fs-6">Day: {save[TODO]}</h6>
-#                     <h6 class="card-text fs-6">Progress:{save[TODO]}</h6>
-#                 </div>
-#                 <div class="col d-flex flex-row-reverse">
-#                     <a href="#" class="btn btn-primary d-flex align-items-center">Load</a>
-#                 </div>
-#               </div>
-#             </div>
-#         '''

@@ -142,3 +142,7 @@ michelleZ -- 01-14-25 17:30
 
 ankitaS -- 01-14-25 11:01 
 - merged db functions for fully functioning html
+
+jadyL -- 01-14-25 23:30
+- integrated saves into load save modal
+- created getAllGameStats(username)
