@@ -234,7 +234,7 @@ def top10():
     leaderboardT = sorted(c.fetchall()[:10], reverse=True)
     return leaderboardT
 
-def newGame(username):
+def newGame(username, key):
     gameSaves = sqlite3.connect(USER_FILE)
     c = gameSaves.cursor()
     if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():

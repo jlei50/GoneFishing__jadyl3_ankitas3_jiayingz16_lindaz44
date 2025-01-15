@@ -97,14 +97,14 @@ def leaderboard():
 @app.route("/game")
 def game():
     username = session.get('username')
-
+    session['died'] = False
     if not username:
         print("Error: Username not found in session.")
         return redirect('/login')
 
     stats = getGameStats(username)
     print(stats)
-    if not stats or len(stats) < 7: # check if initial stats exist
+    if not stats or session['died'] == True or len(stats) < 7: # check if initial stats exist
         createGameSavesTable()
         day = 1
         food = 10
@@ -187,6 +187,8 @@ def newDay():
     if(getFood(session['username'])<=0):
         updateCrew(random.randint(0,3), session['username'])
     if(getCrew(session['username'])<=0):
+        session['died'] = True
+        newGame(session['username'], getKey(session['username']) +1)
         return render_template("end.html")
     if((getProgress(session['username'])/30)>=100):
         return render_template("win.html")
