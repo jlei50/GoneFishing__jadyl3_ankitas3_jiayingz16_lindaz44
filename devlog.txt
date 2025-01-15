@@ -139,3 +139,6 @@ michelleZ -- 01-14-25 17:30
 - fixed game html issues
 - added javascript for boat movement
 - added fish choice
+
+ankitaS -- 01-14-25 11:01 
+- merged db functions for fully functioning html
