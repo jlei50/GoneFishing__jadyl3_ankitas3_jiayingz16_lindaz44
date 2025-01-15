@@ -218,7 +218,7 @@ def newGame(username):
     gameSaves = sqlite3.connect(USER_FILE)
     c = gameSaves.cursor()
     if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
-        c.execute("INSERT INTO gameSaves (username, day, food, crew, progress, crewMood, key) VALUES (?, ?, ?, ?, ?, ?)", (username, 0, 10, 20, 0, "calm", getKey(username)+1))
+        c.execute("INSERT INTO gameSaves (username, day, food, crew, progress, crewMood, ukey) VALUES (?, ?, ?, ?, ?, ?, ?)", (username, 0, 10, 20, 0, "calm", getKey(username)+1))
         gameSaves.commit()
     return "new game"
         
