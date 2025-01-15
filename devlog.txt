@@ -141,4 +141,9 @@ michelleZ -- 01-14-25 17:30
 - added fish choice
 
 ankitaS -- 01-14-25 11:01 
-- merged db functions for fully functioning html
+- merged db functions for fully functioning HTML
+
+ankitaS -- 01-14-25 22:52
+- added key var to db to account for new game player saves
+- added save functions so user can go back to previous game
+
