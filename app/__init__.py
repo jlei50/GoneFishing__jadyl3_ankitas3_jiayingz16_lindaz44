@@ -98,17 +98,19 @@ def game():
         return redirect('/login')
 
     stats = getGameStats(username)
-    if not stats: # check if initial stats exist
+    print(stats)
+    if not stats or len(stats) < 7: # check if initial stats exist
         createGameSavesTable()
         day = 1
         food = 10
         crew = 20
         progress = 0
         crewMood = 'Calm'
-        addGameStats(username, day, food, crew, progress, crewMood)
-        saveGame(username, day, food, crew, progress, crewMood)  
+        ukey = 0
+        addGameStats(username, day, food, crew, progress, crewMood, ukey)
+        saveGame(username, day, food, crew, progress, crewMood, ukey)  
     else: #references stats var otherwise
-        saveGame(username, stats[1], stats[2], stats[3], stats[4], stats[5])
+        saveGame(username, stats[1], stats[2], stats[3], stats[4], stats[5], stats[6])
     
     #stop from randomizing wind and speed after each refresh
     if 'wind_speed' not in session or 'wind_dir' not in session:
@@ -167,7 +169,7 @@ def fishChoice():
         fish += 1
         
     progress = float(fish)
-    saveGame(username, stats[1], fish, stats[3], stats[4], stats[5])
+    saveGame(username, stats[1], fish, stats[3], stats[4], stats[5], stats[6])
     updateProgress(username, progress)
     return redirect("/new_day")
 
