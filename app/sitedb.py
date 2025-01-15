@@ -1,4 +1,5 @@
 import sqlite3
+import random
 
 USER_FILE="sea.db"
 
@@ -135,8 +136,10 @@ def updateFood(username):
     c.execute("SELECT food FROM gameSaves WHERE username = ?", (username,))
     data = c.fetchone()
     food = data[0]
-    if not(data[0]==0):
-        food = data[0]-1
+    if not(data[0]<=0):
+        food = data[0]-random.randint(1,3)
+    else:
+        food = 0
     c.execute("UPDATE gameSaves SET food = ? WHERE username = ?", (food, username))
     db.commit()
 
