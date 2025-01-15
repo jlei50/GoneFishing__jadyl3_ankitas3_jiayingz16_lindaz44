@@ -143,6 +143,12 @@ michelleZ -- 01-14-25 17:30
 ankitaS -- 01-14-25 11:01 
 - merged db functions for fully functioning html
 
+ankitaS -- 01-14-25 22:52
+- added key var to db to account for new game player saves
+- added save functions so user can go back to previous game
+
 jadyL -- 01-14-25 23:30
 - integrated saves into load save modal
 - created getAllGameStats(username)
+- merged db functions for fully functioning HTML
+
