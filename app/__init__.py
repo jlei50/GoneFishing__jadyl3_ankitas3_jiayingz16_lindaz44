@@ -110,7 +110,7 @@ def game():
     if not stats or session['died'] == True or len(stats) < 7: # check if initial stats exist
         createGameSavesTable()
         day = 1
-        food = 10
+        food = 20
         crew = 20
         progress = 0
         crewMood = 'Calm'
@@ -165,36 +165,44 @@ def sailChoice():
 def fishChoice():
     username = session.get('username')
     stats = getGameStats(username)
-    wind = session.get('wind_speed')
+    
+    wind_speed = session.get('wind_speed')
     fish = stats[2]
     crew = stats[3]
     
-    if(crew >= 10 and wind==1):
-        fish += 5
-    if(crew >=10 and wind==0.5):
-        fish += 2
+    if crew >= 5:
+        fish += max(10, int(wind_speed * 2))  # Higher fish yield for larger crew
     else:
-        fish += 1
-        
-    progress = float(fish)
-    saveGame(username, stats[1], fish, stats[3], stats[4], stats[5], stats[6])
-    updateProgress(username, progress)
+        fish += max(2, int(wind_speed * 1))   # Lower fish yield for smaller crew
+
+    saveGame(username, stats[1], fish, crew, stats[4], stats[5], stats[6])
+    updateProgress(username, fish)
     return redirect("/new_day")
 
 @app.route("/new_day")
 def newDay():
+    username = session.get('username')    
     session.pop('wind_speed', None)
     session.pop('wind_dir', None)
-    if (random.randint(0,10)<7): #randomly depletes food
-        updateFood(session['username'])
-    if(getFood(session['username'])<=0):
-        updateCrew(random.randint(0,3), session['username'])
-    if(getCrew(session['username'])<=0):
+    
+    stats = getGameStats(username)
+    crewMood = stats[5]
+    crew = stats[3]
+    
+    # update food
+    if (crewMood == 'Calm'):
+        updateFood(username, crew)
+    else:
+        updateFood(username, crew*1.5)
+    
+    if(getCrew(username)<=0):
         session['died'] = True
-        newGame(session['username'], getKey(session['username']) +1)
+        newGame(username, getKey(username) +1)
         return render_template("end.html")
-    if((getProgress(session['username'])/30)>=100):
+    
+    if((getProgress(username)/30)>=100):
         return render_template("win.html")
+    
     beegFile = api.getWind()
     data = (beegFile['data'])
     random_int = random.randint(1,700)

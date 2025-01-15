@@ -130,16 +130,12 @@ def updateProgress(username, miles):
     c.execute("UPDATE gameSaves SET progress = ? WHERE username = ?", (totalMiles, username))
     db.commit()
 
-def updateFood(username):
+def updateFood(username, crew):
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
     c.execute("SELECT food FROM gameSaves WHERE username = ?", (username,))
     data = c.fetchone()
-    food = data[0]
-    if not(data[0]<=0):
-        food = data[0]-random.randint(1,3)
-    else:
-        food = 0
+    food = data[0] - crew
     c.execute("UPDATE gameSaves SET food = ? WHERE username = ?", (food, username))
     db.commit()
 
@@ -178,7 +174,6 @@ def getKey(username):
     key = data[0]
     return key
 
-
 def createLeaderboard():
     leaderboardTable = sqlite3.connect(USER_FILE)
     c = leaderboardTable.cursor()
@@ -208,8 +203,6 @@ def addVoyageLength(username, voyageLengthDays):
         c.execute("INSERT INTO leaderboardTable (username, voyageLengthDays) VALUES (?, ?)", (username,getVoyageLengthDays(username)))
         leaderboardTable.commit()
     return "game stats added"
-
-
 
 def voyageFinished(username):
     return (getProgress(username) == 100)
