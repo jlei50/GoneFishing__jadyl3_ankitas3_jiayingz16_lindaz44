@@ -195,7 +195,10 @@ def newDay():
     if (random.randint(0,10)<7): #randomly depletes food
         currfood = getFood(username, ukey)
         currcrew = getCrew(username, ukey)
-        updateFood(session['username'], currfood - random.randint(int(currcrew/2), currcrew + 1), ukey)
+        newFood = currfood - random.randint(int(currcrew/3), currcrew + 1)
+        if(newFood<0):
+            newFood=0 #avoids fish going negative
+        updateFood(session['username'], newFood, ukey)
     if(getFood(session['username'], ukey)<=0):
         updateCrew(random.randint(0,3), session['username'], ukey)
     if(getCrew(session['username'], ukey)<=0):

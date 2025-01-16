@@ -173,3 +173,6 @@ jadyL -- 01-15-25 22:00
 - rewrite game logic
   - rewrote fishing
 - get load save buttons to work. Up to 6 saves.
+
+lindaZ -- 01-16-25 10:21
+- fixed issues with negative fish
