@@ -42,22 +42,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                    {% for h in rank %}
-                    {% for i in num %}
-                    {% for j in user %}
+                    {% for i in range(arr|length) %}
                         <tr>
-                            <th scope="row">{{h}}</th> 
-                            <th scope="row">{{i}}</th> 
-                            <th scope="row">{{j}}</th> 
-                      
+                            <th scope="row">{{rank[i]}}</th> 
+                            <td>{{user[i]}}</th> 
+                            <td>{{num[i]}}</th> 
                             </tr>
                     {% endfor %}
-                    {% endfor %}
-                    {% endfor %}
-                       
-                    
-            
-                    
                     </tbody>
                 </table>
             </div>
