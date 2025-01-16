@@ -95,8 +95,8 @@ def home():
 def leaderboard():
     num = []
     for i in range(len(top10())):
-        num.append(i)
-    return render_template('leaderboard.html', arr=top10(), num=num)
+        num.append(list(top10())[i])
+    return render_template('leaderboard.html', arr=list(top10()), num=num)
 
 @app.route("/game")
 def game():
@@ -223,6 +223,7 @@ def newDay():
     session['wind_speed'] = wind_speed
     session['wind_dir'] = wind_dir
     sitedb.updateDay(session['username'], ukey)
+    addVoyageLength(username, getVoyageLengthDays(username,ukey), ukey)
     return redirect("/game")
 
 @app.route("/map")
