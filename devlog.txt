@@ -181,3 +181,4 @@ lindaZ -- 01-16-25 10:21
 michelleZ -- 01-16-25 17:00
 - fixed leaderboard db & html
 - incorporated leaderboard into game
+- fixed buttons positions

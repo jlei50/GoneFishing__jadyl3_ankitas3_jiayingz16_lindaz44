@@ -101,7 +101,6 @@
         .crewMood img {
             display: inline-block;
         }
-
     </style>
 </head>
   <body>
@@ -139,25 +138,28 @@
       </div>
     </div>
 
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <div class="buttons">
+    <div class="main-container d-flex justify-content-left align-items-left">
+      <div class="card" style="width: 18rem;">
+          <div class="card-body">
+              <div class="details">
+                  <p>current wind speed: {{speed}} mph</p>
+                  <p>course: {{course}} / current wind direction: {{direction}} mph</p>
+                  <p>miles traveled: {{miles}} / progress: {{progress}}%</p>
+              </div>
+          </div>
+      </div>
+  
+      <div class="buttons d-flex align-items-left">
           <div class="sailChoice">
-            <a href="/sailChoice" class="btn btn-primary m-3" style="position:absolute; left:35%;">Sail</a>
+              <a href="/sailChoice" class="btn btn-primary m-3">Sail</a>
           </div>
-
+  
           <div class="fishChoice">
-            <a href="/fishChoice" class="btn btn-primary m-3" style="position:absolute; left:50%;">Fish</a>
+              <a href="/fishChoice" class="btn btn-primary m-3">Fish</a>
           </div>
-        </div>
-
-        <div class="details">
-          <p>current wind speed: {{speed}} mph</p>
-          <p>course: {{course}} / current wind direction: {{direction}} mph</p>
-          <p>miles traveled: {{miles}} / progress: {{progress}}%</p>
-        </div>
       </div>
     </div>
+  
 
     <a href="/new_day" class="btn btn-primary m-3">Next Day</a>
     <p>Notes: course is the direction you want to head in. keep in mind the wind direction relative to your course</p>
@@ -168,7 +170,7 @@
       let direction = 1; // 1 for moving up, -1 for moving down
 
       function animateBoat() {
-          position += direction * 0.05; // adjust speed by changing 0.5 per frame
+          position += direction * 0.05; // adjust speed by changing 0.05 per frame
           if (position >= 12 || position <= 8) { // set limits for motion
               direction *= -1; // reverse direction
           }
