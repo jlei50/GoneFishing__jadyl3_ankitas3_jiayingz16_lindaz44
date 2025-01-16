@@ -3,7 +3,19 @@
   <head>
     <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- code for font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet">
     <style>
+        body {
+          background-color: black;
+          font-family: "Tiny5", serif;
+          font-weight: 400;
+          /* font-size: larger; */
+          font-style: normal;
+          color: white;
+        }
         .background{
             width:100%;
             overflow:hidden;
@@ -18,6 +30,7 @@
 
         .scroller img{
           width:210%;
+          height:80vh;
           flex-shrink:0;
         }
 
@@ -45,7 +58,7 @@
         .fish {
           display: inline-flex;
           position: absolute;
-          mix-blend-mode: multiply;
+          /* mix-blend-mode: multiply; */
           top:10%;
           right:2%;
         }
@@ -56,24 +69,23 @@
 
         .crew {
           position: absolute;
-          mix-blend-mode: multiply;
+          /* mix-blend-mode: multiply; */
           top: 19%;
           right: 2.5%;
           display: inline-flex;
           gap: 5px;
         }
-        
+
         .day {
             position: absolute;
             top:10%;
             left:2%;
             font-weight: bold;
-            font-size: 18px;
         }
 
         .crewMood {
             position: absolute;
-            mix-blend-mode: multiply;
+            /* mix-blend-mode: multiply; */
             top: 13%;
             right: 2%;
             display: inline-flex;
@@ -83,7 +95,7 @@
             margin: 0;
             margin-top: 10px;
             display: inline-block;
-            font-size: 16px;
+            /* font-size: 16px; */
         }
 
         .crewMood img {
@@ -93,26 +105,7 @@
     </style>
 </head>
   <body>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <ul class="nav nav-pills">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">New Game</a>
-          </li>
-        </ul>
-        <ul class="nav nav-pills">
-          <li class="nav-item">
-            <a href="/saveExitGame" class="nav-link" href="#">Load Save</a>
-          </li>
-        </ul>
-        <ul class="nav nav-pills">
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
-          </li>
-        </ul>
-      </ul>
-    </nav> -->
-    <a href="/home" class="btn text-info pb-0 px-2"><h2>Home</h2></a>
+    <a href="/home" class="btn text-white py-2 px-10"><h2>𓉞</h2></a>
 
     <div class="background">
         <div class="scroller">
@@ -122,40 +115,48 @@
     </div>
 
     <div class="day">
-        <p>Day {{day}}</p>
+        <p class="h2">Day {{day}}</p>
     </div>
 
     <div class="boat" id="boat">
         <img src="{{ url_for('static', filename='placeholder.png') }}">
     </div>
 
-    <div class="fish">
-        <p>{{ num_fish }}</p>
-        <img src="{{ url_for('static', filename='fish.jpg') }}" width="50" height="25">
+    <div class="info">
+      <div class="fish">
+          <p class="text-white h2">{{ num_fish }}</p>
+          <img src="{{ url_for('static', filename='fish.jpg') }}" width="50" height="25">
+      </div>
+
+      <div class="crewMood">
+        <p class="text-white h2">{{ crewMood }}</p>
+        <img src="{{ url_for('static', filename='smile.webp') }}" width="50" height="50">
+      </div>
+
+      <div class="crew">
+        <p class="text-white h2">{{ crew }}</p>
+        <img src="{{ url_for('static', filename='crew.png') }}" width="35" height="35">
+      </div>
     </div>
 
-    <!-- <div class="crewMood">
-      <p>{{ crewMood }}</p>
-      <img src="{{ url_for('static', filename='smile.webp') }}" width="50" height="50">
-    </div> -->
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <div class="buttons">
+          <div class="sailChoice">
+            <a href="/sailChoice" class="btn btn-primary m-3" style="position:absolute; left:35%;">Sail</a>
+          </div>
 
-    <div class="crew">
-      <p>{{ crew }}</p>
-      <img src="{{ url_for('static', filename='crew.png') }}" width="35" height="35">
-    </div>
+          <div class="fishChoice">
+            <a href="/fishChoice" class="btn btn-primary m-3" style="position:absolute; left:50%;">Fish</a>
+          </div>
+        </div>
 
-    <div class="sailChoice">
-      <a href="/sailChoice" class="btn btn-primary m-3" style="position:absolute; left:35%;">Sail</a>
-    </div>
-
-    <div class="fishChoice">
-      <a href="/fishChoice" class="btn btn-primary m-3" style="position:absolute; left:50%;">Fish</a>
-    </div>
-
-    <div class="details">
-      <p>current wind speed: {{speed}} mph</p>
-      <p>course: {{course}} / current wind direction: {{direction}} mph</p>
-      <p>miles traveled: {{miles}} / progress: {{progress}}%</p>
+        <div class="details">
+          <p>current wind speed: {{speed}} mph</p>
+          <p>course: {{course}} / current wind direction: {{direction}} mph</p>
+          <p>miles traveled: {{miles}} / progress: {{progress}}%</p>
+        </div>
+      </div>
     </div>
 
     <a href="/new_day" class="btn btn-primary m-3">Next Day</a>
