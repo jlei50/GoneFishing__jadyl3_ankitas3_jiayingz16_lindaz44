@@ -85,6 +85,15 @@ def logout():
 def home():
     username = session.get('username')
     saveHtml = "No account detected."
+    path = request.path
+    if path == "/home":
+        if not username:
+            print("Error: Username not found in session.")
+            return redirect('/login')
+        ukey = getNumGamesPlayed(username)
+        ukey+=1
+        addGameStats(username, 1, 20,2, 0, 'Calm', ukey)
+        stats = getGameStats(username, ukey)
     if username:
         saves = getAllGameStats(username)
         saveHtml = returnSavesHtml(saves)
@@ -92,33 +101,50 @@ def home():
 
 @app.route("/leaderboard")
 def leaderboard():
+    username = session.get('username')
+    if voyageFinished(username):
+        addVoyageLength(username)
     num = []
     for i in range(len(top10())):
-        num.append(i)
+            num.append(i)
     return render_template('leaderboard.html', arr=top10(), num=num)
 
 @app.route("/game")
 def game():
     username = session.get('username')
     session['died'] = False
-    if not username:
-        print("Error: Username not found in session.")
-        return redirect('/login')
+    ukey = getNumGamesPlayed(username)
+    path = request.path
+    if path == "/game":
+        if not username:
+            print("Error: Username not found in session.")
+            return redirect('/login')
 
-    stats = getGameStats(username)
-    print(stats)
-    if not stats or session['died'] == True or len(stats) < 7: # check if initial stats exist
-        createGameSavesTable()
-        day = 1
-        food = 20
-        crew = 2
-        progress = 0
-        crewMood = 'Calm'
-        ukey = 0
-        addGameStats(username, day, food, crew, progress, crewMood, ukey)
-        saveGame(username, day, food, crew, progress, crewMood, ukey)  
-    else: #references stats var otherwise
-        saveGame(username, stats[1], stats[2], stats[3], stats[4], stats[5], stats[6])
+        stats = getGameStats(username, getNumGamesPlayed(username))
+
+        if not stats or getNumGamesPlayed(username) == 0:
+            createGameSavesTable()
+            day = 1
+            food = 20
+            crew = 2
+            progress = 0
+            crewMood = 'Calm'
+            ukey = 1
+            addGameStats(username, day, food, crew, progress, crewMood, ukey)
+            stats = getGameStats(username, ukey)
+        
+        if session['died'] == True: # check if initial stats exist
+            day = 1
+            food = 20
+            crew = 2
+            progress = 0
+            crewMood = 'Calm'
+            ukey = getNumGamesPlayed(username) + 1
+            addGameStats(username, day, food, crew, progress, crewMood, ukey)
+            stats = getGameStats(username, ukey)
+
+        else: #references stats var otherwise
+            saveGame(username, stats[1], stats[2], stats[3], stats[4], stats[5], stats[6])
     
     #stop from randomizing wind and speed after each refresh
     if 'wind_speed' not in session or 'wind_dir' not in session:
@@ -142,13 +168,16 @@ def game():
     
     courses = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW","SES", "SSE", "ESE", "ENE", "EEN"]
     session['course'] = courses[random.randint(0,20)]
-    details = getGameStats(username)
+    details = getGameStats(username, ukey)
     num_day = getVoyageLengthDays(username)
+    if voyageFinished(username):
+        addVoyageLength(username)
     
     return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], progress=round((details[4]/30), 2), crewMood=details[5])
 
 @app.route("/sailChoice")
 def sailChoice():
+    username = session.get('username')
     print(session.get('wind_speed'))
     if session['wind_dir'] == session['course']:
         wind=1 #user heading in right direction, wind doesn't impact them
@@ -159,12 +188,14 @@ def sailChoice():
 
     progress = float(session.get('wind_speed'))*15*wind
     updateProgress(session.get('username'), progress)
+    if voyageFinished(username):
+        addVoyageLength(username)
     return redirect("/new_day")
 
 @app.route("/fishChoice")
 def fishChoice():
     username = session.get('username')
-    stats = getGameStats(username)
+    stats = getGameStats(username, getNumGamesPlayed(username))
 
     wind_speed = float(session.get('wind_speed', '0'))
     fish = stats[2]
@@ -204,6 +235,8 @@ def fishChoice():
 
     saveGame(username, stats[1], int(fish), crew, stats[4], stats[5], stats[6])
     updateProgress(username, int(fish))
+    if voyageFinished(username):
+        addVoyageLength(username)
     return redirect("/new_day")
 
 @app.route("/new_day")
@@ -211,8 +244,8 @@ def newDay():
     username = session.get('username')    
     session.pop('wind_speed', None)
     session.pop('wind_dir', None)
-    
-    stats = getGameStats(username)
+    print(getNumGamesPlayed(username))
+    stats = getGameStats(username, getNumGamesPlayed(username))
     crewMood = stats[5]
     crew = stats[3]
     
@@ -243,6 +276,8 @@ def newDay():
     session['wind_speed'] = wind_speed
     session['wind_dir'] = wind_dir
     sitedb.updateDay(session['username'])
+    if voyageFinished(username):
+        addVoyageLength(username)
     return redirect("/game")
 
 @app.route("/map")
@@ -252,7 +287,7 @@ def map():
 @app.route("/saveExitGame")
 def saveExitGame():
     username = session.get('username')
-    stats = getGameStats(username)
+    stats = getGameStats(username, getNumGamesPlayed(username))
     saveGame(username, stats[1], stats[2], stats[3], stats[4], stats[5], stats[6])
     return render_template("home.html", day = stats[1], food = stats[2], crew = stats[3], progress = stats[4], crewMood = stats[5], numPlayed = stats[6]+1)
 

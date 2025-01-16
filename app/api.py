@@ -13,14 +13,25 @@ createUsers()
 createGameSavesTable()
 createLeaderboard()
 addUser("j", "j")
-p = returnEntireUsersTable()[0][0]
-print("username:" + p)
-addGameStats(p, 0, "fg", 4, 8, "hf",0)
-saveGame(p, 9,"lllllllllllll",0,0,"ftg",0)
-updateDay(p)
-addVoyageLength(p, getVoyageLengthDays(p))
-#print(returnLeaderboardStats(p))
-print(top10())
+# addUser("k", "k")
+# p = returnEntireUsersTable()[0][0]
+# k = returnEntireUsersTable()[1][0]
+# print("username:" + p)
+addGameStats("j", 0, "fg", 4, 8, "hf", 1)
+addGameStats("j", 4, "fgr", 4, 77, "hf", 2)
+# addGameStats(p, 0, "fg", 4, 8, "hf",1)
+# addGameStats(k, 0, "fg", 4, 8, "hf",1)
+# addGameStats(p, 0, "fg", 4, 8, "hf",2)
+# saveGame(p, 9,"lllllllllllll",0,0,"ftg",0)
+# updateDay(p)
+# addVoyageLength(p, getVoyageLengthDays(p))
+# #print(returnLeaderboardStats(p))
+# print(top10())
+# print(getNumGamesPlayed(k))
+# print(returnSaveGamesTable())
+print(getGameStats("j", 1))
+print(getAllGameStats("j"))
+
 
 # ======================================== #
 

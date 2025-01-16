@@ -76,7 +76,7 @@ def createGameSavesTable():
 def addGameStats(username, day, food, crew, progress, crewMood, ukey):
     gameSaves = sqlite3.connect(USER_FILE)
     c = gameSaves.cursor()
-    if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
+    if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username, ))).fetchone():
         c.execute("INSERT INTO gameSaves (username, day, food, crew, progress, crewMood, ukey) VALUES (?, ?, ?, ?, ?, ?, ?)", (username, day, food, crew, progress, crewMood, ukey))
         gameSaves.commit()
     return "game stats added"
@@ -85,9 +85,8 @@ def addGameStats(username, day, food, crew, progress, crewMood, ukey):
 def saveGame(username, day, food, crew, progress, crewMood, ukey):
     gameSaves = sqlite3.connect(USER_FILE)
     c = gameSaves.cursor()
-    if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
-        c.execute("UPDATE gameSaves set day=?, food=?, crew=?, progress=?, crewMood=?, ukey=? WHERE username=?", (day, food, crew, progress, crewMood, ukey, username))
-        gameSaves.commit()
+    c.execute("UPDATE gameSaves set day=?, food=?, crew=?, progress=?, crewMood=? WHERE username=? AND ukey=?", (day, food, crew, progress, crewMood, username, ukey))
+    gameSaves.commit()
     return "game stats added"
 
 def returnSaveGamesTable():
@@ -96,13 +95,21 @@ def returnSaveGamesTable():
     c.execute("SELECT * FROM gameSaves")
     return c.fetchall()
 
-def getGameStats(username):
+def getGameStats(username, ukey):
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
     # check if username exists in gameSaves
-    c.execute("SELECT * FROM gameSaves WHERE username=?", (username,))
+    c.execute("SELECT * FROM gameSaves WHERE username=? AND ukey=?", (username, ukey))
     userGameData = c.fetchone()
     return list(userGameData) if userGameData else None
+
+def getNumGamesPlayed(username):
+    gameSaves = sqlite3.connect(USER_FILE)
+    c = gameSaves.cursor()
+    c.execute("SELECT COUNT(1) FROM gameSaves WHERE username=?", (username,))
+    result = c.fetchone()
+    rowCount = result[0]
+    return rowCount
 
 def getAllGameStats(username):
     db = sqlite3.connect(USER_FILE)
@@ -196,7 +203,7 @@ def getProgress(username):
         userProgress = c.fetchone()[3]
         return userProgress
 
-def addVoyageLength(username, voyageLengthDays):
+def addVoyageLength(username):
     leaderboardTable = sqlite3.connect(USER_FILE)
     c = leaderboardTable.cursor()
     if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
@@ -208,7 +215,7 @@ def voyageFinished(username):
     return (getProgress(username) == 100)
 
 def finalVoyageLength(usrename):
-    if voyageFinished():
+    if voyageFinished(username):
         return getVoyageLengthDays(username)
     
 def returnLeaderboardStats(username):
