@@ -210,11 +210,13 @@ def newDay():
     if(getFood(session['username'], ukey)<=0):
         updateCrew(random.randint(0,3), session['username'], ukey)
     if(getCrew(session['username'], ukey)<=0):
+        addVoyageLength(username, getVoyageLengthDays(username,ukey), ukey)
         session['died'] = True
         session.pop('ukey', None)
         # newGame(session['username'], getKey(session['username']) +1)
         return render_template("end.html")
     if((getProgress(session['username'], ukey)/20)>=100):
+        
         return render_template("win.html")
 
     # negative food fix
@@ -234,7 +236,6 @@ def newDay():
     session['wind_speed'] = wind_speed
     session['wind_dir'] = wind_dir
     sitedb.updateDay(session['username'], ukey)
-    addVoyageLength(username, getVoyageLengthDays(username,ukey), ukey)
     return redirect("/game")
 
 @app.route("/map")
