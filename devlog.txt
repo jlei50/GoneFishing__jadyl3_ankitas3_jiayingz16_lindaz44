@@ -176,3 +176,4 @@ jadyL -- 01-15-25 22:00
 
 lindaZ -- 01-16-25 10:21
 - fixed issues with negative fish
+- fixed bg image
