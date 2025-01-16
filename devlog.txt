@@ -167,6 +167,7 @@ ankitaS - 01-15-25 19:12
 michelleZ -- 01-15-25 10:30
 - debugged leaderboard functions
 - added leaderboard to site
+- 
 
 jadyL -- 01-15-25 22:00
 - complete and utter overhaul of sitedb.py
@@ -176,3 +177,4 @@ jadyL -- 01-15-25 22:00
 
 lindaZ -- 01-16-25 10:21
 - fixed issues with negative fish
+- fixed bg image
