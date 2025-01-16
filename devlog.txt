@@ -156,6 +156,14 @@ lindaZ -- 01-15-25 10:47
 - updated boat png
 - fix issues with sitedb saves function
 
+ankitaS -- 01-16-25 11:01
+- finalized leaderboard db functions
+- fixing key var
+
+ankitaS - 01-15-25 19:12
+- fixing key var in db
+- working on new game function to reset everytime
+
 michelleZ -- 01-15-25 10:30
 - debugged leaderboard functions
 - added leaderboard to site
