@@ -94,9 +94,17 @@ def home():
 @app.route("/leaderboard")
 def leaderboard():
     num = []
+    user = []
+    rank = []
+    for h in range(1,len(top10())+1):
+        rank.append(h)
+        
     for i in range(len(top10())):
-        num.append(list(top10())[i])
-    return render_template('leaderboard.html', arr=list(top10()), num=num)
+        num.append(int(str(list(top10())[i][1])))
+        
+    for j in range(len(top10())):
+        user.append(str(list(top10())[j][0]))
+    return render_template('leaderboard.html', arr=list(top10()), num=num, user=user, rank=rank)
 
 @app.route("/game")
 def game():
@@ -147,7 +155,7 @@ def game():
     details = getGameStats(username, ukey)
     num_day = getVoyageLengthDays(username, ukey)
     
-    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], progress=round((details[4]/30), 2), crewMood=details[5])
+    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], progress=round((details[4]/20), 2), crewMood=details[5])
 
 @app.route("/sailChoice")
 def sailChoice():
@@ -202,11 +210,13 @@ def newDay():
     if(getFood(session['username'], ukey)<=0):
         updateCrew(random.randint(0,3), session['username'], ukey)
     if(getCrew(session['username'], ukey)<=0):
+        addVoyageLength(username, getVoyageLengthDays(username,ukey), ukey)
         session['died'] = True
         session.pop('ukey', None)
         # newGame(session['username'], getKey(session['username']) +1)
         return render_template("end.html")
-    if((getProgress(session['username'], ukey)/30)>=100):
+    if((getProgress(session['username'], ukey)/20)>=100):
+        
         return render_template("win.html")
 
     # negative food fix
@@ -226,7 +236,6 @@ def newDay():
     session['wind_speed'] = wind_speed
     session['wind_dir'] = wind_dir
     sitedb.updateDay(session['username'], ukey)
-    addVoyageLength(username, getVoyageLengthDays(username,ukey), ukey)
     return redirect("/game")
 
 @app.route("/map")
