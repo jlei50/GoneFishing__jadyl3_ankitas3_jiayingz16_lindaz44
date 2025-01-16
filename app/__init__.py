@@ -94,9 +94,17 @@ def home():
 @app.route("/leaderboard")
 def leaderboard():
     num = []
+    user = []
+    rank = []
+    for h in range(1,len(top10())+1):
+        rank.append(h)
+        
     for i in range(len(top10())):
-        num.append(list(top10())[i])
-    return render_template('leaderboard.html', arr=list(top10()), num=num)
+        num.append(int(str(list(top10())[i][1])))
+        
+    for j in range(len(top10())):
+        user.append(str(list(top10())[j][0]))
+    return render_template('leaderboard.html', arr=list(top10()), num=num, user=user, rank=rank)
 
 @app.route("/game")
 def game():

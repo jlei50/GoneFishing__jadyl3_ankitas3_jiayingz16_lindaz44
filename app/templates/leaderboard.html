@@ -38,16 +38,26 @@
                         <tr>
                             <th scope="col">Rank</th>
                             <th scope="col">Username</th>
-                            <th scope="col">Average number of guesses</th>
+                            <th scope="col">Voyage</th>
                         </tr>
                     </thead>
                     <tbody>
+                    {% for h in rank %}
                     {% for i in num %}
+                    {% for j in user %}
                         <tr>
-                            <th scope="row">{{i+1}}</th>
-                            <td>{{num[i]}}</td>
-                        </tr>
+                            <th scope="row">{{h}}</th> 
+                            <th scope="row">{{i}}</th> 
+                            <th scope="row">{{j}}</th> 
+                      
+                            </tr>
                     {% endfor %}
+                    {% endfor %}
+                    {% endfor %}
+                       
+                    
+            
+                    
                     </tbody>
                 </table>
             </div>
