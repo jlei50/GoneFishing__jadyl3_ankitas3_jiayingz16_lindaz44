@@ -93,7 +93,6 @@ def home():
 
 @app.route("/leaderboard")
 def leaderboard():
-    createLeaderboard()
     leaderboard_data = top10()  # Call top10() once and reuse the result
     ranks = []  # List to hold ranks
     users = []  # List to hold usernames
@@ -167,6 +166,7 @@ def game():
     session['course'] = courses[random.randint(0,20)]
     details = getGameStats(username, ukey)
     num_day = getVoyageLengthDays(username, ukey)
+    createLeaderboard()
     
     return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], progress=round((details[4]/20), 2), crewMood=details[5])
 
@@ -193,15 +193,8 @@ def fishChoice():
     wind = session.get('wind_speed')
     fish = stats[2]
     crew = stats[3]
-    print(ukey)
-    # if(crew >= 10 and wind==1):
-    #     fish += 5
-    # if(crew >=10 and wind==0.5):
-    #     fish += 2
-    # else:
-    #     fish += 1
+    #print(ukey)
     fish += 2 * crew
-        
     totalfish = float(fish)
     # saveGame(username, stats[1], fish, stats[3], stats[4], stats[5], stats[6])
     updateFood(username, totalfish, ukey)
@@ -211,8 +204,10 @@ def fishChoice():
 def newDay():
     username = session.get('username')
     ukey = session.get('ukey')
+    
     session.pop('wind_speed', None)
     session.pop('wind_dir', None)
+    
     if (random.randint(0,10)<7): #randomly depletes food
         currfood = getFood(username, ukey)
         currcrew = getCrew(username, ukey)
@@ -222,19 +217,16 @@ def newDay():
         updateFood(session['username'], newFood, ukey)
     if(getFood(session['username'], ukey)<=0):
         updateCrew(random.randint(0,3), session['username'], ukey)
-    if(getCrew(session['username'], ukey)<=0):
-        addVoyageLength(username, getVoyageLengthDays(username,ukey), ukey)
+    if getCrew(username, ukey) <= 0:
         session['died'] = True
         session.pop('ukey', None)
         # newGame(session['username'], getKey(session['username']) +1)
         return render_template("end.html")
     if((getProgress(session['username'], ukey)/20)>=100):
-        
+        voyage_length = getVoyageLengthDays(username, ukey)
+        addVoyageLength(username, voyage_length, ukey)
+        # print(f"Added to leaderboard: {username} with {voyage_length} days.")
         return render_template("win.html")
-
-    # negative food fix
-    # if():
-        # 
 
     beegFile = api.getWind()
     data = (beegFile['data'])
@@ -249,6 +241,7 @@ def newDay():
     session['wind_speed'] = wind_speed
     session['wind_dir'] = wind_dir
     sitedb.updateDay(session['username'], ukey)
+    
     return redirect("/game")
 
 @app.route("/map")

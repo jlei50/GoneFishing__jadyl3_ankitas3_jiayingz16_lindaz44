@@ -179,5 +179,5 @@ lindaZ -- 01-16-25 10:21
 - fixed bg image
 
 michelleZ -- 01-16-25 17:00
-- fixed leaderboard
-- 
+- fixed leaderboard db & html
+- incorporated leaderboard into game

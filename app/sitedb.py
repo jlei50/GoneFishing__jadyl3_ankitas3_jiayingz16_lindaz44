@@ -174,13 +174,29 @@ def getKey(username):
         key = 0
     return key
 
-
 def createLeaderboard():
     leaderboardTable = sqlite3.connect(USER_FILE)
     c = leaderboardTable.cursor()
     command = "CREATE TABLE IF NOT EXISTS leaderboardTable (username TEXT, voyageLengthDays INTEGER)"
     c.execute(command)
     leaderboardTable.commit()
+    
+def addVoyageLength(username, voyageLengthDays, ukey):
+    leaderboardTable = sqlite3.connect(USER_FILE)
+    c = leaderboardTable.cursor()
+    # Check if the user exists in the leaderboard to update their data instead of adding duplicates
+    if (c.execute("SELECT 1 FROM leaderboardTable WHERE username=?", (username,))).fetchone():
+        # Update existing entry
+        c.execute("UPDATE leaderboardTable SET voyageLengthDays = ? WHERE username = ?", 
+                  (voyageLengthDays, username))
+    else:
+        # Add new entry
+        c.execute("INSERT INTO leaderboardTable (username, voyageLengthDays) VALUES (?, ?)", 
+                  (username, voyageLengthDays))
+    leaderboardTable.commit()
+    leaderboardTable.close()
+    return "Leaderboard updated"
+
     
 def getVoyageLengthDays(username, ukey):
     days = sqlite3.connect(USER_FILE)
@@ -204,8 +220,6 @@ def addVoyageLength(username, voyageLengthDays, ukey):
         c.execute("INSERT INTO leaderboardTable (username, voyageLengthDays) VALUES (?, ?)", (username,getVoyageLengthDays(username, ukey)))
         leaderboardTable.commit()
     return "game stats added"
-
-
 
 def voyageFinished(username, ukey):
     return (getProgress(username, ukey) == 100)
