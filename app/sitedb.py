@@ -96,11 +96,11 @@ def returnSaveGamesTable():
     c.execute("SELECT * FROM gameSaves")
     return c.fetchall()
 
-def getGameStats(username):
+def getGameStats(username, ukey):
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
     # check if username exists in gameSaves
-    c.execute("SELECT * FROM gameSaves WHERE username=?", (username,))
+    c.execute("SELECT * FROM gameSaves WHERE username=?AND ukey=?", (username, ukey))
     userGameData = c.fetchone()
     return list(userGameData) if userGameData else None
 
@@ -112,60 +112,53 @@ def getAllGameStats(username):
     userGameData = c.fetchall()
     return list(userGameData) if userGameData else None
 
-def updateDay(username):
+def updateDay(username, ukey):
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
-    c.execute("SELECT day FROM gameSaves WHERE username = ?", (username,))
+    c.execute("SELECT day FROM gameSaves WHERE username = ? AND ukey=?", (username, ukey))
     data = c.fetchone()
     day = data[0]+1
-    c.execute("UPDATE gameSaves SET day = ? WHERE username = ?", (day, username))
+    c.execute("UPDATE gameSaves SET day = ? WHERE username = ? AND ukey=?", (day, username, ukey))
     db.commit()
 
-def updateProgress(username, miles):
+def updateProgress(username, miles, ukey):
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
-    c.execute("SELECT progress FROM gameSaves WHERE username = ?", (username,))
+    c.execute("SELECT progress FROM gameSaves WHERE username = ? AND ukey=?", (username, ukey))
     data = c.fetchone()
     totalMiles = data[0]+miles
-    c.execute("UPDATE gameSaves SET progress = ? WHERE username = ?", (totalMiles, username))
+    c.execute("UPDATE gameSaves SET progress = ? WHERE username = ? AND ukey=?", (totalMiles, username, ukey))
     db.commit()
 
-def updateFood(username):
+def updateFood(username, food, ukey):
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
-    c.execute("SELECT food FROM gameSaves WHERE username = ?", (username,))
-    data = c.fetchone()
-    food = data[0]
-    if not(data[0]<=0):
-        food = data[0]-random.randint(1,3)
-    else:
-        food = 0
-    c.execute("UPDATE gameSaves SET food = ? WHERE username = ?", (food, username))
+    c.execute("UPDATE gameSaves SET food = ? WHERE username = ? AND ukey=?", (food, username, ukey))
     db.commit()
 
-def getFood(username):
+def getFood(username, ukey):
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
-    c.execute("SELECT food FROM gameSaves WHERE username = ?", (username,))
+    c.execute("SELECT food FROM gameSaves WHERE username = ? AND ukey=?", (username, ukey))
     data = c.fetchone()
     food = data[0]
     return food
 
-def updateCrew(deaths, username):
+def updateCrew(deaths, username, ukey):
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
-    c.execute("SELECT crew FROM gameSaves WHERE username = ?", (username,))
+    c.execute("SELECT crew FROM gameSaves WHERE username = ? AND ukey=?", (username, ukey))
     data = c.fetchone()
     crew = data[0]
     if not(data[0]==0):
         crew = data[0]-deaths
-    c.execute("UPDATE gameSaves SET crew = ? WHERE username = ?", (crew, username))
+    c.execute("UPDATE gameSaves SET crew = ? WHERE username = ? AND ukey=?", (crew, username, ukey))
     db.commit()
 
-def getCrew(username):
+def getCrew(username, ukey):
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
-    c.execute("SELECT crew FROM gameSaves WHERE username = ?", (username,))
+    c.execute("SELECT crew FROM gameSaves WHERE username=?  AND ukey=?", (username, ukey))
     data = c.fetchone()
     crew = data[0]
     return crew
@@ -173,9 +166,12 @@ def getCrew(username):
 def getKey(username):
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
-    c.execute("SELECT ukey FROM gameSaves WHERE username = ?", (username,))
+    c.execute("SELECT ukey FROM gameSaves WHERE username = ? ORDER BY ukey DESC", (username,))
     data = c.fetchone()
-    key = data[0]
+    if data:
+        key = data[0]
+    else:
+        key = 0
     return key
 
 
@@ -186,18 +182,18 @@ def createLeaderboard():
     c.execute(command)
     leaderboardTable.commit()
     
-def getVoyageLengthDays(username):
+def getVoyageLengthDays(username, ukey):
     days = sqlite3.connect(USER_FILE)
     c = days.cursor()
-    c.execute("SELECT day FROM gameSaves WHERE username=?", (username,))
+    c.execute("SELECT day FROM gameSaves WHERE username=? AND ukey=?", (username, ukey))
     day = c.fetchone()
     return day[0]
 
-def getProgress(username):
+def getProgress(username, ukey):
     gameSaves = sqlite3.connect(USER_FILE)
     c = gameSaves.cursor()
     if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
-        c.execute("SELECT * FROM gameSaves WHERE username=?", (username,))
+        c.execute("SELECT * FROM gameSaves WHERE username=? AND ukey=?", (username, ukey))
         userProgress = c.fetchone()[3]
         return userProgress
 
@@ -211,11 +207,11 @@ def addVoyageLength(username, voyageLengthDays):
 
 
 
-def voyageFinished(username):
-    return (getProgress(username) == 100)
+def voyageFinished(username, ukey):
+    return (getProgress(username, ukey) == 100)
 
-def finalVoyageLength(usrename):
-    if voyageFinished():
+def finalVoyageLength(username, ukey):
+    if voyageFinished(username, ukey):
         return getVoyageLengthDays(username)
     
 def returnLeaderboardStats(username):

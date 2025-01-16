@@ -160,3 +160,8 @@ michelleZ -- 01-15-25 10:30
 - debugged leaderboard functions
 - added leaderboard to site
 
+jadyL -- 01-15-25 22:00
+- complete and utter overhaul of sitedb.py
+- rewrite game logic
+  - rewrote fishing
+- get load save buttons to work. Up to 6 saves.
