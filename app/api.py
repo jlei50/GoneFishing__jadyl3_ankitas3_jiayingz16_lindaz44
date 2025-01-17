@@ -34,6 +34,7 @@ def getWind():
     return response
 
 # ======================================== #
+
 def getRecipe():
     with open("keys/spoontacular.txt", "r") as file:
         api_key = file.read().strip()
@@ -44,9 +45,6 @@ def getRecipe():
     data = urllib.request.urlopen(request)
     response = json.loads(data.read())
     return response
-    
-
-# ======================================== #
 
 # ==============TESING========================== #
 createUsers()
