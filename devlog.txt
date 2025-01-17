@@ -185,3 +185,7 @@ michelleZ -- 01-16-25 17:00
 
 lindaZ -- 01-16-25 19:19
 - incorpated spoontacular api to display daily fish reicp
+
+jadyL -- 01-15-25 22:40
+- game.html made look good
+- cleaned up __init__

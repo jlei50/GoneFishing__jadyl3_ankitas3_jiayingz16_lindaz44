@@ -13,11 +13,10 @@ import random
 
 from flask import Flask, render_template, redirect, session, request, flash, jsonify
 
+#custom module
 import api
 import sitedb
-#custom module
 from sitedb import *
-# from html_builder import *
 
 # flask App
 app = Flask(__name__, template_folder = "templates", static_folder = "static")
@@ -29,9 +28,6 @@ def checkSession():
     runFunctions()
 
     return redirect("/home")
-    # if 'username' in session:
-    #     return redirect("/home")
-    # return redirect("/login")
 
 @app.route("/login", methods=["GET", "POST"])# will code registering and logging forms later
 def login():
@@ -130,7 +126,6 @@ def game():
         return redirect('/login')
 
     stats = getGameStats(username, ukey)
-    # print(stats)
     if not stats or session['died'] == True or len(stats) < 7: # check if initial stats exist
         createGameSavesTable()
         day = 1
@@ -140,9 +135,6 @@ def game():
         crewMood = 'Calm'
         ukey = ukey
         addGameStats(username, day, food, crew, progress, crewMood, ukey)
-        # saveGame(username, day, food, crew, progress, crewMood, ukey)  
-    # else: #references stats var otherwise
-        # saveGame(username, stats[1], stats[2], stats[3], stats[4], stats[5], stats[6])
     
     #stop from randomizing wind and speed after each refresh
     if 'wind_speed' not in session or 'wind_dir' not in session:
@@ -174,7 +166,8 @@ def game():
     details = getGameStats(username, ukey)
     num_day = getVoyageLengthDays(username, ukey)
     createLeaderboard()
-    
+
+    # return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], progress=round((details[4]/10), 2), crewMood=details[5])
     return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], recipe=session['recipe'], progress=round((details[4]/10), 2), crewMood=details[5])
 
 @app.route("/sailChoice")

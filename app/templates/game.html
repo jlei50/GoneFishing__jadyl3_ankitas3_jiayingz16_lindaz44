@@ -30,7 +30,7 @@
 
         .scroller img{
           width:200%;
-          height:70vh;
+          height:80vh;
           flex-shrink:0;
         }
 
@@ -46,20 +46,20 @@
         .boat {
           display: inline-flex;
           position: absolute;
-          top:10%;
-          left: 5%;
+          top:20%;
+          left: 2%;
         }
 
         .boat img{
           display: inline-flex;
-          width: 45%;
+          width: 40%;
         }
 
         .fish {
           display: inline-flex;
           position: absolute;
           /* mix-blend-mode: multiply; */
-          top:10%;
+          top:12%;
           right:2%;
         }
 
@@ -70,7 +70,7 @@
         .crew {
           position: absolute;
           /* mix-blend-mode: multiply; */
-          top: 22%;
+          top: 24%;
           right: 2.5%;
           display: inline-flex;
           gap: 5px;
@@ -78,7 +78,7 @@
 
         .day {
             position: absolute;
-            top:10%;
+            top:12%;
             left:2%;
             font-weight: bold;
         }
@@ -86,7 +86,7 @@
         .crewMood {
             position: absolute;
             /* mix-blend-mode: multiply; */
-            top: 15%;
+            top: 17%;
             right: 2%;
             display: inline-flex;
         }
@@ -105,9 +105,9 @@
     </style>
 </head>
   <body>
-    <a href="/home" class="btn text-white py-2 px-10"><h2>𓉞</h2></a>
+    <a href="/home" class="btn text-white position-absolute top-5 start-5"><h1>🏠︎</h1></a>
 
-    <div class="background">
+    <div class="background position-absolute top-50 start-50 translate-middle">
         <div class="scroller">
             <img src="{{ url_for('static', filename='bg.png') }}" alt="background">
             <img src="{{ url_for('static', filename='bg.png') }}" alt="background">
@@ -139,39 +139,40 @@
       </div>
     </div>
 
-    <div class="main-container mt-2 d-flex justify-content-center align-items-center">
-      <div class="card " style="width: 50rem;">
+    <div class="mt-2 position-absolute top-50 start-50 translate-middle">
+      <div class="card text-white bg-dark opacity-75" style="width: 35rem;">
           <div class="card-body">
               <div class="details">
-                  <p>current wind speed: {{speed}} mph</p>
-                  <p>course: {{course}} / current wind direction: {{direction}} mph</p>
-                  <p>miles traveled: {{miles}} / progress: {{progress}}%</p>
-                  <p>Today's menu: {{recipe}}</p>
-                  <p>Notes: course is the direction you want to head in. keep in mind the wind direction relative to your course</p>
+                  <p class="h4"><b>current wind speed:</b>  {{speed}} mph</p>
+                  <p class="h4"><b>course:</b>  {{course}} / current wind direction: {{direction}} mph</p>
+                  <p class="h4"><b>miles traveled:</b>  {{miles}} / progress: {{progress}}%</p>
+                  <p class="h4"><b>Today's menu:</b>  {{recipe}}</p>
+                  <p class="opacity-100"><b>Notes:</b> course is the direction you want to head in. keep in mind the wind direction relative to your course</p>
               </div>
           </div>
       </div>
       <br>
-      <div class="buttons align-items-center">
+      <div class="justify-content-end" style="width:35rem;">
+        <div class="buttons d-inline-flex">
           <div class="sailChoice">
-              <a href="/sailChoice" class="btn btn-primary m-3">Sail</a>
+              <a href="/sailChoice" class="btn text-white bg-dark opacity-75 mx-2"><h2>Sail</h2></a>
           </div>
-  
           <div class="fishChoice">
-              <a href="/fishChoice" class="btn btn-primary m-3">Fish</a>
+              <a href="/fishChoice" class="btn text-white bg-dark opacity-75 mx-2"><h2>Fish</h2></a>
           </div>
+        </div>
       </div>
     </div>
   
 
     <script>
       const boat = document.getElementById('boat');
-      let position = 10; // initial position (in %)
+      let position = 20; // initial position (in %)
       let direction = 1; // 1 for moving up, -1 for moving down
 
       function animateBoat() {
           position += direction * 0.05; // adjust speed by changing 0.05 per frame
-          if (position >= 12 || position <= 8) { // set limits for motion
+          if (position >= 22 || position <= 18) { // set limits for motion
               direction *= -1; // reverse direction
           }
           boat.style.top = position + '%'; // update boat position
