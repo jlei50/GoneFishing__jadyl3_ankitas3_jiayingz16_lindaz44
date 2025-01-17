@@ -223,7 +223,7 @@ def newDay():
         return render_template("end.html")
     if((getProgress(session['username'], ukey)/10)>=100):
         voyage_length = getVoyageLengthDays(username, ukey)
-        addVoyageLength(username, voyage_length, ukey)
+        addVoyageLength(username, voyage_length)
         return render_template("win.html")
 
     #updates food
