@@ -175,7 +175,7 @@ def game():
     num_day = getVoyageLengthDays(username, ukey)
     createLeaderboard()
     
-    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], recipe=session['recipe'], progress=round((details[4]/20), 2), crewMood=details[5])
+    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], recipe=session['recipe'], progress=round((details[4]/10), 2), crewMood=details[5])
 
 @app.route("/sailChoice")
 def sailChoice():
@@ -230,7 +230,7 @@ def newDay():
         session.pop('ukey', None)
         # newGame(session['username'], getKey(session['username']) +1)
         return render_template("end.html")
-    if((getProgress(session['username'], ukey)/20)>=100):
+    if((getProgress(session['username'], ukey)/10)>=100):
         voyage_length = getVoyageLengthDays(username, ukey)
         addVoyageLength(username, voyage_length, ukey)
         # print(f"Added to leaderboard: {username} with {voyage_length} days.")
