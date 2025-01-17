@@ -44,5 +44,45 @@ def getRecipe():
     data = urllib.request.urlopen(request)
     response = json.loads(data.read())
     return response
+    
 
 # ======================================== #
+
+# ==============TESING========================== #
+createUsers()
+createGameSavesTable()
+createLeaderboard()
+addUser("ankita", "ankita")
+p = returnEntireUsersTable()[0][0]
+addGameStats(p, 9, "c", 4, 8, "c", 4)
+updateDay(p, 4)
+updateDay(p, 4)
+updateDay(p, 4)
+addVoyageLength(p, getVoyageLengthDays(p,4))
+
+addUser("jady", "jady")
+l = returnEntireUsersTable()[1][0]
+addGameStats(l,89, "c", 4, 8, "c", 2)
+updateDay(l, 2)
+updateDay(l, 2)
+updateDay(l, 2)
+addVoyageLength(l, getVoyageLengthDays(l,2))
+
+addUser("michelle","michelle")
+v = returnEntireUsersTable()[2][0]
+addGameStats(v,80, "c", 4, 8, "c", 3)
+updateDay(v, 3)
+updateDay(v, 3)
+updateDay(v, 3)
+addVoyageLength(v, getVoyageLengthDays(v,3))
+
+addUser("linda","linda")
+n = returnEntireUsersTable()[3][0]
+addGameStats(n,59, "c", 4, 8, "c", 1)
+updateDay(n, 1)
+updateDay(n, 1)
+updateDay(n, 1)
+addVoyageLength(n, getVoyageLengthDays(n,1))
+
+
+
