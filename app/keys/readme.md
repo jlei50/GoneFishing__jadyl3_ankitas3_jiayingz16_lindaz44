@@ -4,12 +4,18 @@ Jady Lei, Ankita Saha, Linda Zheng, Michelle Zhu
 
 SoftDev
 
+# API KEYS
 
-API List and Description
+## Spoonerific
 
-- Spoonacular: returns a fish recipe. Limits of 150 calls a day.
+**API Key Status:** Uploaded and Active
 
-NO KEYS REQUIRED for below:  
+**Obtain Method:** Creating an account on site with email address 
 
-- NOAA API: returns wind speed and direction to create a more realistic and random weather cycle in the game.  
+**Limitations:** 150 requests per day, 1 request per second, Free Tier
 
+**Expiration:** Non-expiring
+
+
+## NOAA API
+**API Key Status:** No Key!
