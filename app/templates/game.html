@@ -64,13 +64,13 @@
         }
 
         .fish p {
-            right: 4%;
+            right: 5%;
         }
 
         .crew {
           position: absolute;
           /* mix-blend-mode: multiply; */
-          top: 19%;
+          top: 22%;
           right: 2.5%;
           display: inline-flex;
           gap: 5px;
@@ -86,7 +86,7 @@
         .crewMood {
             position: absolute;
             /* mix-blend-mode: multiply; */
-            top: 13%;
+            top: 15%;
             right: 2%;
             display: inline-flex;
         }
@@ -124,12 +124,12 @@
     <div class="info">
       <div class="fish">
           <p class="text-white h2">{{ num_fish }}</p>
-          <img src="{{ url_for('static', filename='fish.jpg') }}" width="50" height="25">
+          <img src="{{ url_for('static', filename='fish.png') }}" width="50" height="40">
       </div>
 
       <div class="crewMood">
         <p class="text-white h2">{{ crewMood }}</p>
-        <img src="{{ url_for('static', filename='smile.webp') }}" width="50" height="50">
+        <img src="{{ url_for('static', filename='smile.png') }}" width="45" height="45">
       </div>
 
       <div class="crew">
@@ -138,19 +138,20 @@
       </div>
     </div>
 
-    <div class="main-container d-flex justify-content-left align-items-left">
-      <div class="card" style="width: 18rem;">
+    <div class="main-container mt-2 d-flex justify-content-center align-items-center">
+      <div class="card " style="width: 30rem;">
           <div class="card-body">
               <div class="details">
                   <p>current wind speed: {{speed}} mph</p>
                   <p>course: {{course}} / current wind direction: {{direction}} mph</p>
                   <p>miles traveled: {{miles}} / progress: {{progress}}%</p>
                   <p>Today's menu: {{recipe}}</p>
+                  <p>Notes: course is the direction you want to head in. keep in mind the wind direction relative to your course</p>
               </div>
           </div>
       </div>
-  
-      <div class="buttons d-flex align-items-left">
+      <br>
+      <div class="buttons align-items-center">
           <div class="sailChoice">
               <a href="/sailChoice" class="btn btn-primary m-3">Sail</a>
           </div>
@@ -161,9 +162,6 @@
       </div>
     </div>
   
-
-    <a href="/new_day" class="btn btn-primary m-3">Next Day</a>
-    <p>Notes: course is the direction you want to head in. keep in mind the wind direction relative to your course</p>
 
     <script>
       const boat = document.getElementById('boat');

@@ -88,7 +88,9 @@ def home():
     if username:
         saves = getAllGameStats(username)
         saveHtml = returnSavesHtml(saves)
-    savenum = "/" + str(getKey(username) + 1)
+        savenum = "/" + str(getKey(username) + 1)
+    else:
+        savenum = "/login"
     return render_template("home.html", saves = saveHtml, linknum = savenum)
 
 @app.route("/leaderboard")
