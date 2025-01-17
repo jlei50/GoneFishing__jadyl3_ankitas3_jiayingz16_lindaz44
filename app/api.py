@@ -34,6 +34,15 @@ def getWind():
     return response
 
 # ======================================== #
-
+def getRecipe():
+    with open("keys/spoontacular.txt", "r") as file:
+        api_key = file.read().strip()
+    if not api_key:
+        raise ValueError("API key file is empty. Please add a valid API key.")
+    url = f'''https://api.spoonacular.com/recipes/complexSearch?apiKey={api_key}&query=fish'''
+    request = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    data = urllib.request.urlopen(request)
+    response = json.loads(data.read())
+    return response
 
 # ======================================== #

@@ -162,13 +162,18 @@ def game():
         print(session['wind_speed'])
         print(session['wind_dir'])
     
+    beegFood = api.getRecipe()
+    foodData = (beegFood['results'])
+    randomInt = random.randint(0, len(foodData)-1)
+    session['recipe'] = foodData[randomInt]['title']
+    
     courses = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW","SES", "SSE", "ESE", "ENE", "EEN"]
     session['course'] = courses[random.randint(0,20)]
     details = getGameStats(username, ukey)
     num_day = getVoyageLengthDays(username, ukey)
     createLeaderboard()
     
-    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], progress=round((details[4]/20), 2), crewMood=details[5])
+    return render_template("game.html", speed=session['wind_speed'], direction=session['wind_dir'], day=num_day, num_fish=details[2], crew=details[3], miles=round(details[4], 2), course=session['course'], recipe=session['recipe'], progress=round((details[4]/20), 2), crewMood=details[5])
 
 @app.route("/sailChoice")
 def sailChoice():
@@ -207,6 +212,7 @@ def newDay():
     
     session.pop('wind_speed', None)
     session.pop('wind_dir', None)
+    session.pop('recipe', None)
     
     if (random.randint(0,10)<7): #randomly depletes food
         currfood = getFood(username, ukey)
@@ -228,6 +234,13 @@ def newDay():
         # print(f"Added to leaderboard: {username} with {voyage_length} days.")
         return render_template("win.html")
 
+    #updates food
+    beegFood = api.getRecipe()
+    foodData = (beegFood['results'])
+    randomInt = random.randint(0, len(foodData)-1)
+    session['recipe'] = foodData[randomInt]['title']
+
+    #updates wind speed and direction
     beegFile = api.getWind()
     data = (beegFile['data'])
     random_int = random.randint(1,700)
