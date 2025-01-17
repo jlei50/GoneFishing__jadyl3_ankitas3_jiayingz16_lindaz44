@@ -181,7 +181,7 @@ def createLeaderboard():
     c.execute(command)
     leaderboardTable.commit()
     
-def addVoyageLength(username, voyageLengthDays, ukey):
+def addVoyageLength(username, voyageLengthDays):
     leaderboardTable = sqlite3.connect(USER_FILE)
     c = leaderboardTable.cursor()
     # Check if the user exists in the leaderboard to update their data instead of adding duplicates
@@ -213,14 +213,6 @@ def getProgress(username, ukey):
         userProgress = c.fetchone()[3]
         return userProgress
 
-def addVoyageLength(username, voyageLengthDays, ukey):
-    leaderboardTable = sqlite3.connect(USER_FILE)
-    c = leaderboardTable.cursor()
-    if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
-        c.execute("INSERT INTO leaderboardTable (username, voyageLengthDays) VALUES (?, ?)", (username,getVoyageLengthDays(username, ukey)))
-        leaderboardTable.commit()
-    return "game stats added"
-
 def voyageFinished(username, ukey):
     return (getProgress(username, ukey) == 100)
 
@@ -239,18 +231,20 @@ def top10():
     db = sqlite3.connect(USER_FILE)
     c = db.cursor()
     # check if username exists in gameSaves
-    c.execute("SELECT * FROM leaderboardTable")
-    leaderboardT = sorted(c.fetchall()[:10], reverse=True)
+    c.execute("SELECT * FROM leaderboardTable ORDER BY voyageLengthDays DESC LIMIT 10")
+    leaderboardT = (c.fetchall())
     return leaderboardT
 
 def newGame(username, key):
     gameSaves = sqlite3.connect(USER_FILE)
     c = gameSaves.cursor()
     if (c.execute("SELECT 1 FROM userTable WHERE username=?", (username,))).fetchone():
-        c.execute("INSERT INTO gameSaves (username, day, food, crew, progress, crewMood, ukey) VALUES (?, ?, ?, ?, ?, ?, ?)", (username, 0, 10, 20, 0, "calm", getKey(username)+1))
+        c.execute("INSERT INTO gameSaves (username, ay, food, crew, progress, crewMood, ukey) VALUES (?, ?, ?, ?, ?, ?, ?)", (username, 0, 10, 20, 0, "calm", getKey(username)+1))
         gameSaves.commit()
     return "new game"
         
+
+
 
 
 
