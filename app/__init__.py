@@ -196,7 +196,6 @@ def fishChoice():
     #print(ukey)
     fish += 2 * crew
     totalfish = float(fish)
-    # saveGame(username, stats[1], fish, stats[3], stats[4], stats[5], stats[6])
     updateFood(username, totalfish, ukey)
     return redirect("/new_day")
 
@@ -221,12 +220,10 @@ def newDay():
     if getCrew(username, ukey) <= 0:
         session['died'] = True
         session.pop('ukey', None)
-        # newGame(session['username'], getKey(session['username']) +1)
         return render_template("end.html")
     if((getProgress(session['username'], ukey)/10)>=100):
         voyage_length = getVoyageLengthDays(username, ukey)
         addVoyageLength(username, voyage_length, ukey)
-        # print(f"Added to leaderboard: {username} with {voyage_length} days.")
         return render_template("win.html")
 
     #updates food
@@ -255,14 +252,6 @@ def newDay():
 @app.route("/map")
 def map():
     return render_template("map")
-
-# @app.route("/saveExitGame")
-# def saveExitGame():
-#     username = session.get('username')
-#     ukey = session.get('ukey')
-#     stats = getGameStats(username, ukey)
-#     saveGame(username, stats[1], stats[2], stats[3], stats[4], stats[5], stats[6])
-#     return render_template("home.html", day = stats[1], food = stats[2], crew = stats[3], progress = stats[4], crewMood = stats[5], numPlayed = stats[6]+1)
 
 @app.route("/0")
 def one():
