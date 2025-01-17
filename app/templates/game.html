@@ -98,9 +98,10 @@
             /* font-size: 16px; */
         }
 
-        .crewMood img {
-            display: inline-block;
+        .crewMood img{
+          margin-top: 5px;
         }
+        
     </style>
 </head>
   <body>
@@ -114,7 +115,7 @@
     </div>
 
     <div class="day">
-        <p class="h2">Day {{day}}</p>
+        <p class="text-black h1">Day {{day}}</p>
     </div>
 
     <div class="boat" id="boat">
@@ -123,18 +124,18 @@
 
     <div class="info">
       <div class="fish">
-          <p class="text-white h2">{{ num_fish }}</p>
-          <img src="{{ url_for('static', filename='fish.png') }}" width="50" height="40">
+          <p class="text-black h1">{{ num_fish }}</p>
+          <img src="{{ url_for('static', filename='fish.png') }}" width="55" height="50">
       </div>
 
       <div class="crewMood">
-        <p class="text-white h2">{{ crewMood }}</p>
+        <p class="text-black h1">{{ crewMood }}</p>
         <img src="{{ url_for('static', filename='smile.png') }}" width="45" height="45">
       </div>
 
       <div class="crew">
-        <p class="text-white h2">{{ crew }}</p>
-        <img src="{{ url_for('static', filename='crew.png') }}" width="35" height="35">
+        <p class="text-black h1">{{ crew }}</p>
+        <img src="{{ url_for('static', filename='crew.png') }}" width="40" height="40">
       </div>
     </div>
 
