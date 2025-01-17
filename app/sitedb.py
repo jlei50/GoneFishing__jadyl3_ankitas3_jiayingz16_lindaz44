@@ -1,3 +1,8 @@
+# GoneFishing: Jady Lei, Ankita Saha, Linda Zheng, Michelle Zhu
+# P2: Open Waters
+# SoftDev
+# Jan 2025
+
 import sqlite3
 import random
 
@@ -242,21 +247,3 @@ def newGame(username, key):
         c.execute("INSERT INTO gameSaves (username, ay, food, crew, progress, crewMood, ukey) VALUES (?, ?, ?, ?, ?, ?, ?)", (username, 0, 10, 20, 0, "calm", getKey(username)+1))
         gameSaves.commit()
     return "new game"
-        
-
-
-
-
-
-#     TESTING
-#     print("hi")
-#     createUsers()
-#     createGameSavesTable()
-#     addUser("j", "j")
-#     p = returnEntireUsersTable()[2][0]
-#     print("username:" + p)
-#     addGameStats(p, 0, "fg", 4, 8, "hf")
-#     saveGame(p, 9,"lllllllllllll",0,0,"ftg")
-#     print(getGameStats(p))
-#     print(returnSaveGamesTable())
-
